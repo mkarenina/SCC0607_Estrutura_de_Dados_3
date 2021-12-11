@@ -69,8 +69,8 @@ int ordenacaoVertice(char estacao[], vertice *vert[]){
     }
     printf("Ordenacao Vertice: i=%d\n", i);
     //printf("vert[i]:  %p\n", vert[i]);
-    printf("vert[i].nomeEst:  %s\n", vert[i]->nomeEst);
-    printf("estacao:  %s\n", estacao);
+    //printf("vert[i].nomeEst:  %s\n", vert[i]->nomeEst);
+    //printf("estacao:  %s\n", estacao);
 
     if(vert[i]== NULL){      //Tem que ser inserido na última posição do vetor
         //printf("entra em if(vert[i]==NULL)\n" );
@@ -99,14 +99,14 @@ int ordenacaoVertice(char estacao[], vertice *vert[]){
     //printf("i=at: %d\n", i);
 
     while(vert[i]!= NULL){
-        printf("print i: %d \n", i);
+        //printf("print i: %d \n", i);
         //printf("linha 96 \n");
         temp = vert[i];
         //printf("linha 98 \n");
         vert[i] = atual;
         //printf("linha 100 \n");
         atual = temp;
-        printf("linha 102 \n");
+        //printf("linha 102 \n");
         i++;
     }
 
