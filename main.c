@@ -206,6 +206,7 @@ int buscar(int codEst, FILE *arq, char *nomeEst){
     }
     printf("Nao encontrou codigo buscado\n");
     
+    
     return 1;   //Erro, nao encontrou nome da estacao
 }
 
@@ -304,7 +305,7 @@ int criaGrafo(FILE *arq, FILE *busca, vertice *vert[]){
             //printf("nomeEst_dentro_do_criaGrafo: %s\n", vert[i]->nomeEst);
             printf("Ordenou, i=%d\n", i);
 
-            if(tamNomeLinha>1){         //Se existir nome da linha
+            if(codProxEst!=-1){//Se existir nome da linha
                 //Criacao da aresta!
                 printf("Aresta atual: %d\n", codProxEst);
                 retorno_erro = buscar(codProxEst, busca, nomeProxEst);
@@ -347,7 +348,7 @@ int criaGrafo(FILE *arq, FILE *busca, vertice *vert[]){
             }
 
         }else{  //Vértice já existe, só inserir a aresta atual
-            if(tamNomeLinha>1){         //Se existir nome da linha
+            if(codProxEst!=-1){         //Se existir nome da linha
                 //Funcao que percorre arestas, retorna 0 se nao existe aresta com msm nomeEst e 1 se existe aresta c msm nomeEst
                 existeAresta = percorreAresta(nomeProxEst, vert, i);
                 if(existeAresta!=NULL){    //Aresta ja existe, so add nova linha
