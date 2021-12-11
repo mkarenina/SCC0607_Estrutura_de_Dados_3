@@ -44,7 +44,7 @@ int read_field(FILE *arq, char delim, char *buffer){
 int checkFile (FILE *arq){
     char status;
     status=getc(arq);
-    printf("Status: %c\n", status);
+    //printf("Status: %c\n", status);
     if(status=='1'){
         return 1;   //Arquivo consistente
     }else{
@@ -67,7 +67,7 @@ int ordenacaoVertice(char estacao[], vertice *vert[]){
     while(vert[i]!=NULL && strcmp(estacao, vert[i]->nomeEst)>0){
         i++;
     }
-    printf("Ordenacao Vertice: i=%d\n", i);
+    //printf("Ordenacao Vertice: i=%d\n", i);
     //printf("vert[i]:  %p\n", vert[i]);
     //printf("vert[i].nomeEst:  %s\n", vert[i]->nomeEst);
     //printf("estacao:  %s\n", estacao);
@@ -135,7 +135,7 @@ void ordenacaoLinhas(aresta_ptr atual, char *linhaInsercao){
     }
 
     //Se encontrou lugar no meio
-    while(atual->nomeLinha[i] != NULL){
+    while(strcmp(atual->nomeLinha[i], "\0")!=0){
         strcpy(temp, atual->nomeLinha[i]);
         strcpy(atual->nomeLinha[i], linhaInsercao);
         strcpy(linhaInsercao, temp);
@@ -199,12 +199,12 @@ int buscar(int codEst, FILE *arq, char *nomeEst){
             fseek(arq, 20, SEEK_CUR);
             tamEst=read_field(arq, '|', nomeEst);
             nomeEst[tamEst-1]='\0';
-            printf("Encontrou: vertice procurado - %d, vertice encontrado - %s\n", codEst, nomeEst);
+            //printf("Encontrou: vertice procurado - %d, vertice encontrado - %s\n", codEst, nomeEst);
             return 0;
         }
         fseek(arq, (tamReg-12), SEEK_CUR);
     }
-    printf("Nao encontrou codigo buscado\n");
+    //printf("Nao encontrou codigo buscado\n");
     
     
     return 1;   //Erro, nao encontrou nome da estacao
@@ -253,7 +253,7 @@ int aresta_integracao(FILE *busca, vertice *ver[], int codEstIntegra, int vertic
 aresta_ptr percorreAresta (char nomeEst_original[], vertice *origem[], int posAtual){
     aresta_ptr atual = origem[posAtual]->first;
 
-    while(((atual->prox)!= NULL) && (strcmp(nomeEst_original, atual->nomeEst)) != 0){
+    while((atual!= NULL) && (strcmp(nomeEst_original, atual->nomeEst)) != 0){
         atual = atual->prox;
     }
 
@@ -270,13 +270,13 @@ int criaGrafo(FILE *arq, FILE *busca, vertice *vert[]){
 
     pula_cabecalho(arq);
 
-    printf("Comecando criaGrafo\n");
+    //("Comecando criaGrafo\n");
     while((removido = getc(arq)) != EOF){
     //for(j=0; j<1; j++){
         //removido = getc(arq);
         fread(&tamRegistro, 1, sizeof(int), arq);
         if(removido==1){    //Se registro foi removido, pular
-            printf("Registro removido\n");
+            //("Registro removido\n");
             fseek(arq, tamRegistro, SEEK_CUR);
             break;
         }
@@ -291,25 +291,25 @@ int criaGrafo(FILE *arq, FILE *busca, vertice *vert[]){
         tamNomeLinha = read_field(arq, '|', nomeLinha);
         nomeLinha[tamNomeLinha-1]='\0';
 
-        printf("Vertice atual: %s\n", nomeEst);
+        //("Vertice atual: %s\n", nomeEst);
 
         i=0;
         while(vert[i]!=NULL && strcmp(vert[i]->nomeEst, nomeEst)!=0){
             i++;
         }
-        //printf("Sai while, i=%d\n", i);
+        //("Sai while, i=%d\n", i);
 
         if(vert[i]==NULL){      //Insere dado novo vertice
             //printf("Vertice null -> %s\n", nomeEst);
             i = ordenacaoVertice(nomeEst, vert);
             //printf("nomeEst_dentro_do_criaGrafo: %s\n", vert[i]->nomeEst);
-            printf("Ordenou, i=%d\n", i);
+            //printf("Ordenou, i=%d\n", i);
 
-            if(codProxEst!=-1){//Se existir nome da linha
+            if(codProxEst!=-1){//Se existir codProxEst
                 //Criacao da aresta!
-                printf("Aresta atual: %d\n", codProxEst);
+                //printf("Aresta atual: %d\n", codProxEst);
                 retorno_erro = buscar(codProxEst, busca, nomeProxEst);
-                printf("Aresta atual: %s\n", nomeProxEst);
+                //printf("Aresta atual: %s\n", nomeProxEst);
                 if (retorno_erro==1){
                     return 1;
                 }
@@ -339,7 +339,7 @@ int criaGrafo(FILE *arq, FILE *busca, vertice *vert[]){
             }
             //printf("chaga antes do aresta_integração \n");
 
-            printf("CodEstInt = %d\n", codEstInt);
+            //printf("CodEstInt = %d\n", codEstInt);
             if(codEstInt!=-1){  //Existe estacao de integracao
                 retorno_erro=aresta_integracao(busca, vert, codEstInt, i);
                 if(retorno_erro==1){
@@ -355,9 +355,9 @@ int criaGrafo(FILE *arq, FILE *busca, vertice *vert[]){
                     ordenacaoLinhas(existeAresta, nomeLinha);
                 }else{                  //Aresta n existe, precisa ser criada e add corretamente
                     //Criacao da aresta!
-                    printf("Aresta atual: %d\n", codProxEst);
+                    //printf("Aresta atual: %d\n", codProxEst);
                     retorno_erro = buscar(codProxEst, busca, nomeProxEst);
-                    printf("Aresta atual: %s\n", nomeProxEst);
+                    //printf("Aresta atual: %s\n", nomeProxEst);
                     if (retorno_erro==1){
                         return 1;
                     }
@@ -385,7 +385,7 @@ int criaGrafo(FILE *arq, FILE *busca, vertice *vert[]){
                 }
             }
         }
-        printf("\n");
+        //printf("\n");
     } 
     return 0;
 }
@@ -401,8 +401,9 @@ void printGrafo(vertice *vert[], int at){
     while(atual!=NULL){
         printf("%s %d", atual->nomeEst, atual->dist);
         for(i=0; strcmp(atual->nomeLinha[i], "\0")!=0; i++){
-            printf(" %s", atual->nomeLinha[i]);
+            printf(" %s ", atual->nomeLinha[i]);
         }
+        atual=atual->prox;
     }
     return;
 }
@@ -544,12 +545,12 @@ int main(){
             arq = fopen(in, "rb");
             busca = fopen(in, "rb");
 
-            printf("abriu os dois arquivos \n");
+           // printf("abriu os dois arquivos \n");
 
             status = checkFile(arq);
             if(status==0){
                 printf("Falha na execução da funcionalidade1.\n");
-                printf("aqui status cabecalho\n");
+                //printf("aqui status cabecalho\n");
                 fclose(arq);
                 fclose(busca);
                 break;
@@ -562,10 +563,10 @@ int main(){
                 printf("Falha na execução da funcionalidade2.\n");
                 return 0;
             }
-            printf("Criou grafo\n");
+            //printf("Criou grafo\n");
             for(i=0; i<qtdeEst; i++){
-                //printGrafo(ver, i);
-                //printf("\n");
+                printGrafo(ver, i);
+                printf("\n");
             }
             
 
