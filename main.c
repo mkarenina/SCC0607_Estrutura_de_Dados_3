@@ -68,50 +68,50 @@ int ordenacaoVertice(char estacao[], vertice *vert[]){
         i++;
     }
     printf("Ordenacao Vertice: i=%d\n", i);
-    printf("vert[i]:  %p\n", vert[i]);
+    //printf("vert[i]:  %p\n", vert[i]);
     printf("vert[i].nomeEst:  %s\n", vert[i]->nomeEst);
     printf("estacao:  %s\n", estacao);
 
     if(vert[i]== NULL){      //Tem que ser inserido na última posição do vetor
-        printf("entra em if(vert[i]==NULL)\n" );
+        //printf("entra em if(vert[i]==NULL)\n" );
         vert[i]=(vertice*)calloc(1,sizeof(vertice));
         strcpy(vert[i]->nomeEst, estacao);
-        printf("nomeEst_dentro_do_ordenacaoVertice: %s\n", vert[i]->nomeEst);
+        //printf("nomeEst_dentro_do_ordenacaoVertice: %s\n", vert[i]->nomeEst);
         vert[i]->qtdeArestas = 1;
         return i;
     }
 
     if(strcmp(estacao, vert[i]->nomeEst)==0){  //vertice ja existe
-    printf("entra if\n");
+        //printf("entra if\n");
         return i;
     }
 
-    printf("sai if\n");
+    //printf("sai if\n");
 
     //Inserir vertice no meio da lista
     atual=(vertice*)calloc(1,sizeof(vertice));
-    printf("pos calloc\n");
+    //printf("pos calloc\n");
     strcpy(atual->nomeEst, estacao);
-    printf("pos strcpy\n");
+    //printf("pos strcpy\n");
     atual->qtdeArestas = 1;
-    printf("pos atual->qtdeArestas\n");
+    //printf("pos atual->qtdeArestas\n");
     at = i;
-     printf("i=at: %d\n", i);
+    //printf("i=at: %d\n", i);
 
     while(vert[i]!= NULL){
         printf("print i: %d \n", i);
-        printf("linha 96 \n");
+        //printf("linha 96 \n");
         temp = vert[i];
-        printf("linha 98 \n");
+        //printf("linha 98 \n");
         vert[i] = atual;
-        printf("linha 100 \n");
+        //printf("linha 100 \n");
         atual = temp;
         printf("linha 102 \n");
         i++;
     }
 
-    printf("temp: %s\n", temp->nomeEst);
-    printf("print i_2: %d \n", i);
+    //printf("temp: %s\n", temp->nomeEst);
+    //printf("print i_2: %d \n", i);
 
     vert[i]=(vertice*)calloc(1,sizeof(vertice));
    // temp = atual;
@@ -147,7 +147,8 @@ void ordenacaoLinhas(aresta_ptr atual, char *linhaInsercao){
 //Encontra posicao para inserir aresta atual QUE JA FOI ALOCADA e insere
 void ordenacaoAresta(aresta_ptr insercao, vertice *vert[], int posAt, char *nomeLinha){
     aresta_ptr atual = vert[posAt]->first;
-    aresta_ptr ant;
+    aresta_ptr ant = NULL;
+    
 
     if(vert[posAt]->first == NULL){
         vert[posAt]->first = insercao;
@@ -167,6 +168,12 @@ void ordenacaoAresta(aresta_ptr insercao, vertice *vert[], int posAt, char *nome
 
     if(strcmp(insercao->nomeEst, atual->nomeEst)==0){   //Se já existe aresta, só add nome da linha ordenado
         ordenacaoLinhas(atual, nomeLinha);
+        return;
+    }
+
+    if(ant==NULL){  //Primeiro da lista de arestas
+        insercao->prox = atual;
+        vert[posAt]->first = insercao;
         return;
     }
 
@@ -286,18 +293,15 @@ int criaGrafo(FILE *arq, FILE *busca, vertice *vert[]){
         printf("Vertice atual: %s\n", nomeEst);
 
         i=0;
-        printf("Oi\n");
         while(vert[i]!=NULL && strcmp(vert[i]->nomeEst, nomeEst)!=0){
             i++;
-            printf("Oi\n");
         }
-        printf("A\n");
-        printf("Sai while, i=%d\n", i);
+        //printf("Sai while, i=%d\n", i);
 
         if(vert[i]==NULL){      //Insere dado novo vertice
-            printf("Vertice null -> %s\n", nomeEst);
+            //printf("Vertice null -> %s\n", nomeEst);
             i = ordenacaoVertice(nomeEst, vert);
-            printf("nomeEst_dentro_do_criaGrafo: %s\n", vert[i]->nomeEst);
+            //printf("nomeEst_dentro_do_criaGrafo: %s\n", vert[i]->nomeEst);
             printf("Ordenou, i=%d\n", i);
 
             if(tamNomeLinha>1){         //Se existir nome da linha
@@ -309,30 +313,30 @@ int criaGrafo(FILE *arq, FILE *busca, vertice *vert[]){
                     return 1;
                 }
 
-                printf("chaga antes do calloc \n");
+                //printf("chaga antes do calloc \n");
 
                 //Encontrou nome da estacao que sera add na aresta
                 insercao = (aresta_ptr)calloc(1,sizeof(aresta));
 
-                printf("chaga depois do calloc \n");
+                //printf("chaga depois do calloc \n");
                 insercao->dist = distancia;
-                printf("linha 299 \n");
+                //printf("linha 299 \n");
                 strcpy(insercao->nomeEst, nomeProxEst);
-                printf("linha 301 \n");
+                //printf("linha 301 \n");
                 memset(insercao->nomeLinha, '\0', sizeof(insercao->nomeLinha));
-                printf("linha 303 \n");
+                //printf("linha 303 \n");
                 strcpy(insercao->nomeLinha[0], nomeLinha);
-                printf("linha 305 \n");
+                //printf("linha 305 \n");
                 insercao->prox = NULL;
-                printf("linha 307 \n");
+                //printf("linha 307 \n");
                 vert[i]->first = insercao;
-                printf("linha 309 \n");
+                //printf("linha 309 \n");
             }else{
-                printf("linha 311 \n");
+                //printf("linha 311 \n");
                 vert[i]->first = NULL;
-                printf("linha 313 \n");
+                //printf("linha 313 \n");
             }
-            printf("chaga antes do aresta_integração \n");
+            //printf("chaga antes do aresta_integração \n");
 
             printf("CodEstInt = %d\n", codEstInt);
             if(codEstInt!=-1){  //Existe estacao de integracao
@@ -384,7 +388,6 @@ int criaGrafo(FILE *arq, FILE *busca, vertice *vert[]){
     } 
     return 0;
 }
-
 
 //Printa 1 vertice por vez
 void printGrafo(vertice *vert[], int at){
