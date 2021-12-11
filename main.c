@@ -547,7 +547,7 @@ int main(){
 
             status = checkFile(arq);
             if(status==0){
-                printf("Falha na execução da funcionalidade.\n");
+                printf("Falha na execução da funcionalidade1.\n");
                 printf("aqui status cabecalho\n");
                 fclose(arq);
                 fclose(busca);
@@ -558,7 +558,7 @@ int main(){
 
            retorno_erro=criaGrafo(arq, busca, ver);
             if(retorno_erro==1){
-                printf("Falha na execução da funcionalidade.\n");
+                printf("Falha na execução da funcionalidade2.\n");
                 return 0;
             }
             printf("Criou grafo\n");
