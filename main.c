@@ -40,6 +40,24 @@ int read_field(FILE *arq, char delim, char *buffer){
 	return i;
 }
 
+//Printa 1 vertice por vez
+void printGrafo(vertice *vert[], int at){
+    aresta_ptr atual;
+    int i;
+
+    printf("%s ", vert[at]->nomeEst);
+    
+    atual = vert[at]->first;
+    while(atual!=NULL){
+        printf("%s %d", atual->nomeEst, atual->dist);
+        for(i=0; strcmp(atual->nomeLinha[i], "\0")!=0; i++){
+            printf(" %s", atual->nomeLinha[i]);
+        }
+        atual=atual->prox;
+    }
+    return;
+}
+
 //Função para ver se arquivo está consistente ou não
 int checkFile (FILE *arq){
     char status;
@@ -223,8 +241,8 @@ int verifica_removido(FILE *arq){
 
 //Verifica estacao de integracao e add no grafo se ela nao for o vertice atual
 int aresta_integracao(FILE *busca, vertice *ver[], int codEstIntegra, int vertice_at){
-    char nomeEstIntegra[64], nomeLinha[12];
-    char integracao[20] = "Integração";
+    char nomeEstIntegra[64];
+    char integracao[20] = "Integracao";
     aresta_ptr atual = NULL;
     int erro_busca;
 
@@ -241,10 +259,10 @@ int aresta_integracao(FILE *busca, vertice *ver[], int codEstIntegra, int vertic
     atual = (aresta_ptr)calloc(1,sizeof(aresta));
     atual->dist=0;
     strcpy(atual->nomeEst, nomeEstIntegra);
-    strcpy(nomeLinha, integracao);
+    strcpy(atual->nomeLinha[0], integracao);
     atual->prox=NULL;
 
-    ordenacaoAresta(atual, ver, vertice_at, nomeLinha);
+    ordenacaoAresta(atual, ver, vertice_at, integracao);
 
     return 0;
 }
@@ -388,24 +406,6 @@ int criaGrafo(FILE *arq, FILE *busca, vertice *vert[]){
         //printf("\n");
     } 
     return 0;
-}
-
-//Printa 1 vertice por vez
-void printGrafo(vertice *vert[], int at){
-    aresta_ptr atual;
-    int i;
-
-    printf("%s ", vert[at]->nomeEst);
-    
-    atual = vert[at]->first;
-    while(atual!=NULL){
-        printf("%s %d", atual->nomeEst, atual->dist);
-        for(i=0; strcmp(atual->nomeLinha[i], "\0")!=0; i++){
-            printf(" %s ", atual->nomeLinha[i]);
-        }
-        atual=atual->prox;
-    }
-    return;
 }
 
 //Printa estacoes somente
