@@ -234,7 +234,7 @@ int buscar(int codEst, FILE *arq, char *nomeEst){
     //printf("Nao encontrou codigo buscado\n");
     
     
-    return 1;   //Erro, nao encontrou nome da estacao
+    return 0;   //Erro, nao encontrou nome da estacao
 }
 
 //Verifica se o dado atual foi removido
