@@ -44,8 +44,16 @@ int read_field(FILE *arq, char delim, char *buffer){
 void printGrafo(vertice *vert[], int at){
     aresta_ptr atual;
     int i;
+    vertice *ver_at = vert[at];
 
-    printf("%s ", vert[at]->nomeEst);
+    if(vert[at]->nomeEst != NULL && vert[at]->nomeEst[0] == '\0')
+        printf("linha vazia");
+
+    printf("%s", vert[at]->nomeEst);
+
+    if(vert[at]->first!=NULL){  //Se vértice possui aresta
+        printf(" ");
+    }
     
     atual = vert[at]->first;
     while(atual!=NULL){
@@ -54,6 +62,9 @@ void printGrafo(vertice *vert[], int at){
             printf(" %s", atual->nomeLinha[i]);
         }
         atual=atual->prox;
+        if(atual!=NULL){
+            printf(" ");
+        }
     }
     return;
 }
@@ -117,14 +128,9 @@ int ordenacaoVertice(char estacao[], vertice *vert[]){
     //printf("i=at: %d\n", i);
 
     while(vert[i]!= NULL){
-        //printf("print i: %d \n", i);
-        //printf("linha 96 \n");
         temp = vert[i];
-        //printf("linha 98 \n");
         vert[i] = atual;
-        //printf("linha 100 \n");
         atual = temp;
-        //printf("linha 102 \n");
         i++;
     }
 
@@ -132,7 +138,7 @@ int ordenacaoVertice(char estacao[], vertice *vert[]){
     //printf("print i_2: %d \n", i);
 
     vert[i]=(vertice*)calloc(1,sizeof(vertice));
-   // temp = atual;
+    vert[i]=atual;
     return at;      //Indica que vertice ja foi inserido no meio da lista
 }
 
@@ -141,7 +147,7 @@ void ordenacaoLinhas(aresta_ptr atual, char *linhaInsercao){
     int i=0;
     char temp[64];
 
-    while(strcmp(atual->nomeLinha[i], "\0")!=0 && strcmp(linhaInsercao, atual->nomeLinha[i])<0){
+    while(strcmp(atual->nomeLinha[i], "\0")!=0 && strcmp(linhaInsercao, atual->nomeLinha[i])>0){
         //Enquanto nao chegar no final das linhas ou não encontrar o lugar para inserir
         i++;
     }
@@ -159,6 +165,9 @@ void ordenacaoLinhas(aresta_ptr atual, char *linhaInsercao){
         strcpy(linhaInsercao, temp);
         i++;
     }
+
+    strcpy(atual->nomeLinha[i], linhaInsercao);
+
     return;
 }
 
@@ -563,7 +572,7 @@ int main(){
                 printf("Falha na execução da funcionalidade2.\n");
                 return 0;
             }
-            //printf("Criou grafo\n");
+            
             for(i=0; i<qtdeEst; i++){
                 printGrafo(ver, i);
                 printf("\n");
