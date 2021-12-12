@@ -233,7 +233,6 @@ int buscar(int codEst, FILE *arq, char *nomeEst){
     }
     //printf("Nao encontrou codigo buscado\n");
     
-    
     return 0;   //Erro, nao encontrou nome da estacao
 }
 
@@ -369,9 +368,9 @@ int criaGrafo(FILE *arq, FILE *busca, vertice *vert[]){
             //printf("CodEstInt = %d\n", codEstInt);
             if(codEstInt!=-1){  //Existe estacao de integracao
                 retorno_erro=aresta_integracao(busca, vert, codEstInt, i);
-                if(retorno_erro==1){
+                /*if(retorno_erro==1){
                     return 1;
-                }
+                }*/
             }
 
         }else{  //Vértice já existe, só inserir a aresta atual
@@ -407,9 +406,9 @@ int criaGrafo(FILE *arq, FILE *busca, vertice *vert[]){
             }
             if(codEstInt!=-1){  //Existe estacao de integracao
                 retorno_erro=aresta_integracao(busca, vert, codEstInt, i);
-                if(retorno_erro==1){
+                /*if(retorno_erro==1){
                     return 1;
-                }
+                }*/
             }
         }
         //printf("\n");
