@@ -26,6 +26,13 @@ typedef struct v{
     aresta *first;
 } vertice;
 
+typedef struct c{
+    char nomeEst[64];
+    int cor;        //0=branco, 1=cinza, 2=preto
+    int distancia;
+    int valorProx;
+} vert_visita;
+
 typedef aresta *aresta_ptr;
 
 //<<<<<<<<<<<<<< scan_quote_string
@@ -673,6 +680,34 @@ void Dijkstra(char origem[], char destino[], vertice *vet[], int total_vertices,
 		}
 	}*/
     return;
+}
+
+//Percorre grafo em profundidade para encontrar ciclo
+void percorreProfundidade(vertice *vert[], char *estacaoOrigem, int totalV){
+    int posAt;
+
+    aresta_ptr atual, avanco;
+    vert_visita *visitados [TAM_VERTICE];
+
+    posAt = percorreVertice(estacaoOrigem, vert);
+
+    visitados[posAt] = (vert_visita *)calloc(1,sizeof(vert_visita));
+    visitados[posAt]->cor = 1;
+    visitados[posAt]->distancia=0;
+    strcpy(visitados[posAt]->nomeEst, estacaoOrigem);
+
+    atual=vert[posAt]->first;
+
+    while (strcmp(atual->nomeEst, estacaoOrigem)!=0){
+        if(atual!=NULL){    //Se existir, é a que iremos avancar pois é a com menor valor de nome
+            posAt = percorreVertice(estacaoOrigem, vert);
+            
+        }
+    }
+    
+
+
+
 }
 
 void Prim (){
