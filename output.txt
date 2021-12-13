@@ -1,0 +1,192 @@
+VAL_MAX = 1077952576 
+Vertice inicial: Luz
+POS: 96
+changedAresta 96 -> 20
+changedAresta 96 -> 124
+changedAresta 96 -> 136
+POS: 136
+changedAresta 136 -> 146
+POS: 124
+changedAresta 124 -> 7
+changedAresta 124 -> 69
+POS: 146
+changedAresta 146 -> 78
+changedAresta 146 -> 111
+POS: 7
+POS: 78
+changedAresta 78 -> 138
+POS: 111
+POS: 20
+changedAresta 20 -> 22
+changedAresta 20 -> 93
+changedAresta 20 -> 151
+POS: 69
+changedAresta 69 -> 110
+POS: 138
+changedAresta 138 -> 158
+POS: 22
+changedAresta 22 -> 16
+POS: 110
+changedAresta 110 -> 45
+changedAresta 110 -> 105
+POS: 45
+changedAresta 45 -> 153
+POS: 158
+changedAresta 158 -> 108
+POS: 93
+changedAresta 93 -> 72
+POS: 108
+changedAresta 108 -> 6
+changedAresta 108 -> 23
+POS: 23
+POS: 153
+POS: 105
+changedAresta 105 -> 57
+POS: 16
+changedAresta 16 -> 151
+POS: 6
+changedAresta 6 -> 38
+changedAresta 6 -> 163
+POS: 57
+changedAresta 57 -> 54
+POS: 163
+changedAresta 163 -> 130
+POS: 151
+changedAresta 151 -> 36
+changedAresta 151 -> 46
+changedAresta 151 -> 50
+POS: 38
+changedAresta 38 -> 135
+POS: 72
+changedAresta 72 -> 150
+POS: 130
+changedAresta 130 -> 119
+POS: 54
+POS: 36
+changedAresta 36 -> 112
+POS: 135
+changedAresta 135 -> 5
+POS: 150
+changedAresta 150 -> 137
+changedAresta 150 -> 165
+POS: 119
+changedAresta 119 -> 145
+POS: 5
+changedAresta 5 -> 127
+POS: 145
+changedAresta 145 -> 139
+POS: 165
+changedAresta 165 -> 103
+POS: 127
+POS: 112
+changedAresta 112 -> 67
+POS: 139
+changedAresta 139 -> 44
+POS: 137
+changedAresta 137 -> 156
+POS: 67
+changedAresta 67 -> 109
+POS: 44
+changedAresta 44 -> 76
+POS: 103
+changedAresta 103 -> 140
+POS: 76
+POS: 109
+changedAresta 109 -> 12
+POS: 140
+changedAresta 140 -> 28
+POS: 156
+changedAresta 156 -> 120
+POS: 12
+changedAresta 12 -> 46
+POS: 28
+changedAresta 28 -> 167
+POS: 50
+changedAresta 50 -> 66
+changedAresta 50 -> 155
+POS: 46
+changedAresta 46 -> 47
+POS: 120
+changedAresta 120 -> 134
+POS: 167
+changedAresta 167 -> 168
+POS: 168
+changedAresta 168 -> 83
+POS: 134
+changedAresta 134 -> 33
+POS: 155
+changedAresta 155 -> 43
+POS: 83
+changedAresta 83 -> 144
+POS: 47
+changedAresta 47 -> 88
+POS: 144
+changedAresta 144 -> 55
+POS: 43
+changedAresta 43 -> 142
+POS: 88
+changedAresta 88 -> 64
+POS: 55
+changedAresta 55 -> 141
+POS: 64
+changedAresta 64 -> 8
+POS: 33
+changedAresta 33 -> 98
+POS: 141
+changedAresta 141 -> 81
+POS: 66
+changedAresta 66 -> 2
+POS: 81
+POS: 2
+POS: 142
+changedAresta 142 -> 82
+POS: 98
+changedAresta 98 -> 65
+POS: 8
+changedAresta 8 -> 56
+POS: 82
+changedAresta 82 -> 73
+POS: 56
+changedAresta 56 -> 117
+POS: 65
+changedAresta 65 -> 125
+POS: 73
+changedAresta 73 -> 84
+POS: 84
+changedAresta 84 -> 51
+POS: 117
+changedAresta 117 -> 27
+POS: 27
+changedAresta 27 -> 149
+POS: 125
+changedAresta 125 -> 126
+POS: 51
+changedAresta 51 -> 75
+POS: 149
+changedAresta 149 -> 91
+POS: 75
+changedAresta 75 -> 10
+POS: 126
+POS: 10
+POS: 91
+changedAresta 91 -> 21
+POS: 21
+changedAresta 21 -> 101
+POS: 101
+changedAresta 101 -> 52
+POS: 52
+POS: 131
+POS: 132
+POS: 133
+POS: 157
+POS: 159
+POS: 160
+POS: 161
+POS: 162
+POS: 166
+POS: 169
+pos = 105 
+ANT[pos] = Paulista 
+Paulista Higienopolis-Mackenzie Republica Luz 
+Numero de estacoes que serao percorridas: 
+Distancia que sera percorrida: 

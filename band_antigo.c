@@ -252,8 +252,8 @@ void dijkstra(elem vet[],  char name[], int tam){
 
 	while(running){
 		curr=curr->nxt;
-		while(curr!=NULL){
-			tmp=bin_search(vet,curr->cidade,tam);
+		while(curr!=NULL){  //relaxaÃ§Ã£o
+			tmp=bin_search(vet,curr->cidade,tam);  
 			if(done[tmp]==0){
 				if(ant[tmp].dist==0 || ant[tmp].dist>(curr->dist+ant[pos].dist)){
 					strcpy(ant[tmp].cidade, vet[pos].cidade);
@@ -272,7 +272,7 @@ void dijkstra(elem vet[],  char name[], int tam){
 					curr = &ant[tmp];
 					pos = tmp;
 				}
-				}
+			}
 		}
 		if(done[pos]){
 			running=0;
@@ -289,7 +289,7 @@ void dijkstra(elem vet[],  char name[], int tam){
 	}
 }
 
-void tirar_lista (elem vet[], char nome[], int tam, int vertices[]){    //Tira todas as conexões da lista com o nome
+void tirar_lista (elem vet[], char nome[], int tam, int vertices[]){    //Tira todas as conexï¿½es da lista com o nome
     int i;
     elem_ptr atual, ant;
 
@@ -324,7 +324,7 @@ void prim (elem lista[], char cid[], int tam, elem lista_prim[]){
 
 
 
-    while(j<2){       //enquanto não são analisados todos os vértices
+    while(j<2){       //enquanto nï¿½o sï¿½o analisados todos os vï¿½rtices
         for(i=0;i<tam;i++){
             if(strcmp(lista[i].cidade, cid)==0){
                 break;
@@ -345,12 +345,12 @@ void prim (elem lista[], char cid[], int tam, elem lista_prim[]){
         j++;
         max=99999;
 
-        for(k=0; vertices_usados[k]!=-1; k++){  //enquanto a análise dos elementos do vetor de vértices usados não acabar
+        for(k=0; vertices_usados[k]!=-1; k++){  //enquanto a anï¿½lise dos elementos do vetor de vï¿½rtices usados nï¿½o acabar
             i=vertices_usados[k];
 
             atual=lista[i].nxt;
 
-            while(atual!=NULL){     //enquanto não acaba a análise de todos os componentes daquela lista encadeada
+            while(atual!=NULL){     //enquanto nï¿½o acaba a anï¿½lise de todos os componentes daquela lista encadeada
                 if(max>atual->dist){
                     max=atual->dist;
                     inserir_prim=atual;
