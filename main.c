@@ -603,6 +603,9 @@ void Dijkstra(char origem[], char destino[], vertice *vet[], int total_vertices,
 	int fecha[total_vertices];
 	int D[total_vertices];
 	char ANT[total_vertices][64];
+	int cont = 0;
+	int i,j;
+	int destPos = percorreVertice(destino, vet);
 	aresta_ptr curr_a;
 	vertice *curr_v;
 	
@@ -671,8 +674,10 @@ void Dijkstra(char origem[], char destino[], vertice *vet[], int total_vertices,
 		curr_a=curr_v->first;
 	}
 
-	int cont = 0;
-	int destPos = percorreVertice(destino, vet);
+	if(strcmp(vet[pos]->nomeEst, destino)!=0){
+		printf("Não existe caminho entre as estações solicitadas.\n");
+		return;
+	}
 
 	pos = destPos;
 
@@ -684,8 +689,6 @@ void Dijkstra(char origem[], char destino[], vertice *vet[], int total_vertices,
 	printf("Numero de estacoes que serao percorridas: %d\n", cont );
 	
 	printf("Distancia que sera percorrida: %d\n", D[destPos]);
-
-	int i,j;
 
 	for(i = cont-1; i >= 0; i--){
 		pos = destPos;
