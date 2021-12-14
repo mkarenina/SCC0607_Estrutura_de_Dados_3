@@ -692,7 +692,7 @@ void Dijkstra(char origem[], char destino[], vertice *vet[], int total_vertices,
 		for(j = 0; j < i; j++){
 			pos=percorreVertice(ANT[pos], vet);
 		}
-		printf("%s ", ANT[pos]);
+		printf("%s, ", ANT[pos]);
 	}
 	
 	printf("%s\n", destino);
@@ -825,15 +825,7 @@ int main(){
 			
 			//char origem[], char destino[], vertice first[], int total_vertices, int total_arestas
 			Dijkstra(origem, destino, ver, qtdeEst, qtdePares);
-
-
-			/*
-			for(i=0; i<qtdeEst; i++){
-				printGrafo(ver, i);
-				printf("\n");
-			}*/
 			
-
 			fclose(arq);
 			fclose(busca);
 			break;
