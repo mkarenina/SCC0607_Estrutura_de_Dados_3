@@ -673,9 +673,10 @@ void Dijkstra(char origem[], char destino[], vertice *vet[], int total_vertices,
 		curr_a=curr_v->first;
 	}
 
-	pos = destPos;
 	printf("vet[pos]: %s\n", vet[pos]->nomeEst);
 
+	pos = destPos;
+	
 	if(strcmp(vet[pos]->nomeEst, destino)!=0){	//Nao encontrou estacao
 		printf("vet[pos]: %s\n", vet[pos]->nomeEst);
 	}
