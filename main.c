@@ -710,24 +710,34 @@ void Dijkstra(char origem[], char destino[], vertice *vet[], int total_vertices,
 
 //Percorre grafo em profundidade para encontrar ciclo
 void percorreProfundidade(vertice *vert[], char *estacaoOrigem, int totalV){
-	int posAt;
+	int posAt, posTeste;
+	int D[totalV];
+	int fecha[totalV];	//0=branco, 1=cinza, 2=preto
+	char ANT[totalV][64];
 
-	aresta_ptr atual, avanco;
-	vert_visita *visitados [TAM_VERTICE];
+	aresta_ptr curr_a, avanco;
+	vertice *curr_v;
+
+	memset(ANT,'\0',sizeof(char)*total_vertices);
+	memset(D,1000000,sizeof(int)*total_vertices);
+	memset(fecha, 0, sizeof(int)*total_vertices);
 
 	posAt = percorreVertice(estacaoOrigem, vert);
 
-	visitados[posAt] = (vert_visita *)calloc(1,sizeof(vert_visita));
-	visitados[posAt]->cor = 1;
-	visitados[posAt]->distancia=0;
-	strcpy(visitados[posAt]->nomeEst, estacaoOrigem);
+	
+	D[posAt] = 0;     //pos é a posição do vertice inicial	
+	strcpy(ANT[posAt], estacaoOrigem);
+	fecha[posAt]=1;
 
-	atual=vert[posAt]->first;
+	curr_a=vert[posAt]->first;
+	avanco = curr_a;
 
-	while (strcmp(atual->nomeEst, estacaoOrigem)!=0){
-		if(atual!=NULL){    //Se existir, é a que iremos avancar pois é a com menor valor de nome
-			posAt = percorreVertice(estacaoOrigem, vert);
-			
+	while (curr_a!=NULL){	//Percorre as arestas para pegar a de menor caminho
+		if(curr_a->dist<avanco.dist){	//Se encontra distancia menor entre as arestas do vertice atual
+			posTeste = percorreVertice(curr_a->nomeEst, vert);
+			if(fecha[vert]==0){		//Se o vertice ainda nao foi analisado
+				avanco=curr_a;
+			}
 		}
 	}
 	
