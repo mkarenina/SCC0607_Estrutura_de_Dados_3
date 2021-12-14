@@ -673,6 +673,8 @@ void Dijkstra(char origem[], char destino[], vertice *vet[], int total_vertices,
 		curr_a=curr_v->first;
 	}
 
+	//printf("vet[pos]: %s", vet[pos]->nomeEst);
+
 	pos = destPos;
 
 	while(pos!=-1 && strcmp(ANT[pos], "\0")!=0){
