@@ -675,15 +675,19 @@ void Dijkstra(char origem[], char destino[], vertice *vet[], int total_vertices,
 
 	pos = destPos;
 
+	if(strcmp(vet[pos]->nomeEst, destino)!=0){	//Nao encontrou estacao
+		printf("vet[pos]: %s\n", vet[pos]->nomeEst);
+	}
+
 	while(pos!=-1 && strcmp(ANT[pos], "\0")!=0){
         cont ++;
 		pos=percorreVertice(ANT[pos], vet);
 	}
 
-	if(cont==1){	//Nao encontrou estacao
+	/*if(cont==1){	//Nao encontrou estacao
 		printf("Não existe caminho entre as estações solicitadas.\n");
 		return;
-	}
+	}*/
 
 	printf("Numero de estacoes que serao percorridas: %d\n", cont );
 	
