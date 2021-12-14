@@ -656,7 +656,6 @@ void Dijkstra(char origem[], char destino[], vertice *vet[], int total_vertices,
 							pos = tmp;
 						}
 					} else {
-						
 						curr_int = tmp;
 						pos = tmp;
 					}
@@ -674,10 +673,11 @@ void Dijkstra(char origem[], char destino[], vertice *vet[], int total_vertices,
 		curr_a=curr_v->first;
 	}
 
-	if(strcmp(vet[pos]->nomeEst, destino)!=0){
+	/*if(strcmp(vet[pos]->nomeEst, destino)!=0){
+		printf("nomeEst")
 		printf("Não existe caminho entre as estações solicitadas.\n");
 		return;
-	}
+	}*/
 
 	pos = destPos;
 
@@ -770,7 +770,7 @@ int main(){
 
 			status = checkFile(arq);
 			if(status==0){
-				printf("Falha na execução da funcionalidade.\n");
+				printf("Falha na execução da funcionalidade1.\n");
 				//printf("aqui status cabecalho\n");
 				fclose(arq);
 				fclose(busca);
@@ -781,7 +781,7 @@ int main(){
 
 		   retorno_erro=criaGrafo(arq, busca, ver, 1);
 			if(retorno_erro==1){
-				printf("Falha na execução da funcionalidade.\n");
+				printf("Falha na execução da funcionalidade2.\n");
 				return 0;
 			}
 			
@@ -809,7 +809,7 @@ int main(){
 		  
 			status = checkFile(arq);
 			if(status==0){
-				printf("Falha na execução da funcionalidade.\n");
+				printf("Falha na execução da funcionalidade3.\n");
 
 				fclose(arq);
 				fclose(busca);
@@ -822,7 +822,7 @@ int main(){
 
 		   retorno_erro=criaGrafo(arq, busca, ver, 1);
 			if(retorno_erro==1){
-				printf("Falha na execução da funcionalidade.\n");
+				printf("Falha na execução da funcionalidade4.\n");
 				return 0;
 			}
 			
