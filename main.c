@@ -685,7 +685,7 @@ void Dijkstra(char origem[], char destino[], vertice *vet[], int total_vertices,
         cont ++;
 		pos=percorreVertice(ANT[pos], vet);
 		//if(strcmp(ANT[pos], destino)==0 || strcmp(ANT[pos], origem)==0){
-			if( strcmp(ANT[pos], origem)==0){
+		if( strcmp(ANT[pos], origem)==0){
 			break;
 		}
 	}
