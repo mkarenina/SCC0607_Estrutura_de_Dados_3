@@ -27,9 +27,9 @@ typedef struct v{
 } vertice;
 
 typedef struct c{
-	char nomeEst[64];
+	char ANT[64];
 	int cor;        //0=branco, 1=cinza, 2=preto
-	int distancia;
+	int D;
 	int valorAnt;
 } vert_visita;
 
@@ -380,6 +380,7 @@ void criaAresta(int codProxEst, vertice *vert[], int i, int distancia, char nome
 	return;
 }
 
+//Funcao para funcionalidade 9
 int criaGrafoNaoDirecionado(FILE *arq, FILE *busca, vertice *vert[], int posVert){
 	int tamRegistro, distancia, i, tamNomeLinha, codProxEst, codEstInt, retorno_erro, tamNomeEst;
 	char removido;
@@ -594,12 +595,10 @@ void printEstacoes(){
 	
 }
 
-//<<<<<<<<<<< Funções Dijkstra >>>>>>>>>>>>>>>>>>>>>>>>
-//char origem[], char destino[], vertice first[], int total_vertices, int total_arestas
-// Dijkstra(origem, destino, ver, qtdeEst, qtdePares);
+//Dijkstra que percorre o vetor até achar menor caminho entre origem e destino
 void Dijkstra(char origem[], char destino[], vertice *vet[], int total_vertices, int total_arestas){
 	int pos;            //Posicao do vertice atual que o Dijkstra está analisando
-	int running,tmp, a;
+	int running,tmp, a, curr_int;
 	int fecha[total_vertices];
 	int D[total_vertices];
 	char ANT[total_vertices][64];
@@ -651,11 +650,11 @@ void Dijkstra(char origem[], char destino[], vertice *vet[], int total_vertices,
 		//tmp = posicao dos vertices adjacentes
 		//pos = posicao do vertice atual
 	
-		int curr_int = 0;
+		curr_int = 0;
 		for(tmp=0; tmp<total_vertices; tmp++){  //Pula para o proximo vertice
 			if(fecha[tmp] == 0 && strcmp(ANT[tmp], "\0")!=0){   //Se vertice adjacente está aberto e ja foi analisado no while anterior
-				if(fecha[pos] == 1 || D[curr_int] >= D[tmp]){        //Se vertice atual esta preto ou ?? (n entendi esse ou)
-					if(fecha[pos] == 0 && D[curr_int]==D[tmp]){      //Se vertice atual está aberto e 
+				if(fecha[pos] == 1 || D[curr_int] >= D[tmp]){
+					if(fecha[pos] == 0 && D[curr_int]==D[tmp]){ 
 						if(strcmp(vet[pos]->nomeEst, vet[tmp]->nomeEst)>0){     //2 antes que 1                            
 							curr_int = tmp;
 							pos = tmp;
@@ -721,45 +720,140 @@ void Dijkstra(char origem[], char destino[], vertice *vet[], int total_vertices,
     
 	return;
 }
-/*
-//Percorre grafo em profundidade para encontrar ciclo
-void percorreProfundidade(vertice *vert[], char *estacaoOrigem, int totalV){
-	int posAt, posTeste;
-	int D[totalV];
-	int fecha[totalV];	//0=branco, 1=cinza, 2=preto
-	char ANT[totalV][64];
 
-	aresta_ptr curr_a, avanco;
-	vertice *curr_v;
-
-	memset(ANT,'\0',sizeof(char)*total_vertices);
-	memset(D,1000000,sizeof(int)*total_vertices);
-	memset(fecha, 0, sizeof(int)*total_vertices);
-
-	posAt = percorreVertice(estacaoOrigem, vert);
+void recursaoBuscaProf(vertice *vert[], char *origem, vert_visita *visitado[], int posAt){
+	int posTeste;
+	aresta_ptr curr_a = vert[posAt]->first;
+	aresta_ptr avanco = NULL;
 
 	
-	D[posAt] = 0;     //pos é a posição do vertice inicial	
-	strcpy(ANT[posAt], estacaoOrigem);
-	fecha[posAt]=1;
-
-	curr_a=vert[posAt]->first;
-	avanco = curr_a;
 
 	while (curr_a!=NULL){	//Percorre as arestas para pegar a de menor caminho
-		if(curr_a->dist<avanco.dist){	//Se encontra distancia menor entre as arestas do vertice atual
+		if(avanco==NULL || curr_a->dist<avanco->dist){	//Se encontra distancia menor entre as arestas do vertice atual
 			posTeste = percorreVertice(curr_a->nomeEst, vert);
-			if(fecha[vert]==0){		//Se o vertice ainda nao foi analisado
+			if(visitado[posTeste]->cor==0){		//Se o vertice ainda nao foi analisado, vai para ele
+				avanco=curr_a;
+			}
+		}
+		if(curr_a->dist==avanco->dist && strcmp(curr_a->nomeEst, avanco->nomeEst)>1){	//Se é a mesma distancia, mas nome da aresta de avanco<atual
+			posTeste = percorreVertice(curr_a->nomeEst, vert);
+			if(visitado[posTeste]->cor==0){		//Se o vertice ainda nao foi analisado, vai para ele
 				avanco=curr_a;
 			}
 		}
 	}
+
+	posTeste = percorreVertice(curr_a->nomeEst, vert);
+	if(visitado[posTeste]->cor!=0){		//Todas as arestas desse vertice ja foram anaisadas
+		return;
+	}
+
+	tmp=percorreVertice(curr_a->nomeEst, vert);
+	fecha[tmp]=1;
+	ANT[tmp]=posAt;
+	D[tmp]=curr_a->dist;
+	//Agora, curr_a é o vertice que analisaremos necessariamente
+	//Fechar curr_a, Ant[curr_a]=posAt, D[curr_a]=curr_a.dist
+	//ver se curr_a é vertice destino
+	//se nao for, ver se curr_a possui arestas nao analisadas
+
+			/*procedure VisitaDfs (u:TipoValorVertice );
+			var FimListaAdj : boolean;
+			Peso : TipoPeso;
+			Aux : Apontador;
+			v : TipoValorVertice;
+			begin
+			Cor[u] := cinza ; Tempo := Tempo + 1; d[u] := Tempo;
+			writeln( ’Visita ’ ,u:2 , ’ Tempo descoberta: ’ ,d[u]:2 , ’ cinza ’ ); readln;
+			if not ListaAdjVazia(u, Grafo)
+			then begin
+			Aux := PrimeiroListaAdj(u, Grafo); FimListaAdj := false;
+			while not FimListaAdj do
+			begin
+			ProxAdj(u, Grafo, v , Peso, Aux, FimListaAdj);
+			if Cor[v] = branco
+			then begin Antecessor[v] := u; VisitaDfs (v ); end;
+			end;
+			end;
+			Cor[u] := preto ; Tempo := Tempo + 1; t [u] := Tempo;
+			writeln( ’Visita ’ ,u:2 , ’ Tempo termino: ’ , t [u]:2 , ’ preto ’ ); readln;
+			end; { VisitaDfs }*/
+}
+
+//Percorre grafo em profundidade para encontrar ciclo
+void percorreProfundidade(vertice *vert[], char *estacaoOrigem, int totalV){
+	int posAt, posTeste, tmp, i;
+	int running=1;
+
+	aresta_ptr curr_a, avanco;
+	vertice *curr_v;
+	vert_visita *visitado[TAM_VERTICE];
+
+	for(i=0; i<totalV; i++){
+		visitado[i]=(vert_visita *)calloc(1,sizeof(vert_visita));
+		visitado[i]->cor=0;		//Branco
+	}
 	
+	posAt = percorreVertice(estacaoOrigem, vert);
+	visitado[posAt]=(vert_visita *)calloc(1,sizeof(vert_visita));
+	visitado[posAt]->D=0;
+	visitado[posAt]->cor=1;
+
+	curr_a=vert[posAt]->first;
+	avanco = curr_a;
+
+	for(i=0; i<totalV; i++){
+
+	}
+
+					/*procedure BuscaEmProfundidade (var Grafo: TipoGrafo);
+					var Tempo : TipoValorTempo;
+					x : TipoValorVertice;
+					d, t : array[TipoValorVertice ] of TipoValorTempo;
+					Cor : array[TipoValorVertice ] of TipoCor;
+					Antecessor : array[TipoValorVertice ] of integer;
+					{−−−Entra aqui o procedimento VisitaDFS (a seguir)−−−}
+					begin
+					Tempo := 0;
+					for x := 0 to Grafo.NumVertices−1do
+					begin Cor[x] := branco; Antecessor[x] := −1; end;
+					for x := 0 to Grafo.NumVertices−1do
+					if Cor[x] = branco then VisitaDfs (x);
+					end; { BuscaEmProfundidade }*/
+
+
+	while(running){	//Percorre o grafo ate encontrar ciclo desejado
+		while (curr_a!=NULL){	//Percorre as arestas para pegar a de menor caminho
+			if(curr_a->dist<avanco->dist){	//Se encontra distancia menor entre as arestas do vertice atual
+				posTeste = percorreVertice(curr_a->nomeEst, vert);
+				if(fecha[posTeste]==0){		//Se o vertice ainda nao foi analisado, vai para ele
+					avanco=curr_a;
+				}
+			}
+			if(curr_a->dist==avanco->dist && strcmp(curr_a->nomeEst, avanco->nomeEst)>1){	//Se é a mesma distancia, mas nome da aresta de avanco<atual
+				posTeste = percorreVertice(curr_a->nomeEst, vert);
+				if(fecha[posTeste]==0){		//Se o vertice ainda nao foi analisado, vai para ele
+					avanco=curr_a;
+				}
+			}
+		}
+
+		tmp=percorreVertice(curr_a->nomeEst, vert);
+		fecha[tmp]=1;
+		ANT[tmp]=posAt;
+		D[tmp]=curr_a->dist;
+		//Agora, curr_a é o vertice que analisaremos necessariamente
+		//Fechar curr_a, Ant[curr_a]=posAt, D[curr_a]=curr_a.dist
+		//ver se curr_a é vertice destino
+		//se nao for, ver se curr_a possui arestas nao analisadas
+	
+	}
+
 
 
 
 }
-*/
+
 void Prim (){
 	
 }
