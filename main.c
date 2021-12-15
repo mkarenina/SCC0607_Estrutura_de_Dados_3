@@ -698,10 +698,10 @@ void Dijkstra(char origem[], char destino[], vertice *vet[], int total_vertices,
 		return;
 	}*/
 
-	if(D[destPos]== cont || cont==0){	//Nao encontrou estacao
+	/*if(D[pos]== cont || cont==0){	//Nao encontrou estacao
 		printf("Não existe caminho entre as estações solicitadas.\n");
 		return;
-	}
+	}*/
 
 	printf("Numero de estacoes que serao percorridas: %d\n", cont );
 	
