@@ -605,7 +605,7 @@ void Dijkstra(char origem[], char destino[], vertice *vet[], int total_vertices,
 	char ANT[total_vertices][64];
 	int cont = 0;
 	int i,j;
-	int conectado=0;	//Recebe 1 se as estacoes estao conectadas
+	int acabou=0;	//Recebe 1 se as estacoes estao conectadas
 	int destPos = percorreVertice(destino, vet);
 	aresta_ptr curr_a;
 	vertice *curr_v;
@@ -640,9 +640,9 @@ void Dijkstra(char origem[], char destino[], vertice *vet[], int total_vertices,
 					strcpy(ANT[tmp], vet[pos]->nomeEst);
 					D[tmp] = (D[pos]+curr_a->dist);
 				}
-				if(strcmp(curr_a->nomeEst, destino)==0){
+				/*if(strcmp(curr_a->nomeEst, destino)==0){
 					conectado=1;
-				}
+				}*/
 			}
 			curr_a=curr_a->prox;
 		}
@@ -688,6 +688,9 @@ void Dijkstra(char origem[], char destino[], vertice *vet[], int total_vertices,
 			break;
 		}
 	}
+
+	cont ++;
+	pos=percorreVertice(ANT[pos], vet);
 
 	/*if(conectado==0){	//Nao encontrou estacao
 		printf("Não existe caminho entre as estações solicitadas.\n");
