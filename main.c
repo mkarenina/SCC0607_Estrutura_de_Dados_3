@@ -681,24 +681,24 @@ void Dijkstra(char origem[], char destino[], vertice *vet[], int total_vertices,
 
 	pos = destPos;
 
-	while(pos!=-1 && strcmp(ANT[pos], "\0")!=0){
+	/*while(pos!=-1 && strcmp(ANT[pos], "\0")!=0){
         cont ++;
 		pos=percorreVertice(ANT[pos], vet);
 		//if(strcmp(ANT[pos], destino)==0 || strcmp(ANT[pos], origem)==0){
-		if( strcmp(ANT[pos], origem)==0){
+		if(strcmp(ANT[pos], origem)==0){
 			break;
 		}
 	}
 
 	cont ++;
-	pos=percorreVertice(ANT[pos], vet);
+	pos=percorreVertice(ANT[pos], vet);*/
 
 	/*if(conectado==0){	//Nao encontrou estacao
 		printf("Não existe caminho entre as estações solicitadas.\n");
 		return;
 	}*/
 
-	if(D[pos]== cont || cont==0){	//Nao encontrou estacao
+	if(D[destPos]== cont || cont==0){	//Nao encontrou estacao
 		printf("Não existe caminho entre as estações solicitadas.\n");
 		return;
 	}
@@ -707,7 +707,12 @@ void Dijkstra(char origem[], char destino[], vertice *vet[], int total_vertices,
 	
 	printf("Distancia que sera percorrida: %d\n", D[destPos]);
 
-	for(i = cont-1; i >= 0; i--){
+	while(strcmp(ANT[pos], "\0")!=0){
+		printf("%s, ", ANT[pos]);
+		pos=percorreVertice(ANT[pos], vet);
+	}
+
+	/*for(i = cont-1; i >= 0; i--){
 		pos = destPos;
 		for(j = 0; j < i; j++){
 			pos=percorreVertice(ANT[pos], vet);
@@ -715,7 +720,7 @@ void Dijkstra(char origem[], char destino[], vertice *vet[], int total_vertices,
 		printf("%s, ", ANT[pos]);
 	}
 	
-	printf("%s\n", destino);
+	printf("%s\n", destino);*/
     
 	return;
 }
