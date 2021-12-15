@@ -684,9 +684,17 @@ void Dijkstra(char origem[], char destino[], vertice *vet[], int total_vertices,
 	while(pos!=-1 && strcmp(ANT[pos], "\0")!=0){
         cont ++;
 		pos=percorreVertice(ANT[pos], vet);
+		if(strcmp(ANT[pos], destino)==0){
+			break;
+		}
 	}
 
-	if(conectado==0){	//Nao encontrou estacao
+	/*if(conectado==0){	//Nao encontrou estacao
+		printf("Não existe caminho entre as estações solicitadas.\n");
+		return;
+	}*/
+
+	if(D[pos]== cont || cont==0){	//Nao encontrou estacao
 		printf("Não existe caminho entre as estações solicitadas.\n");
 		return;
 	}
@@ -707,7 +715,7 @@ void Dijkstra(char origem[], char destino[], vertice *vet[], int total_vertices,
     
 	return;
 }
-
+/*
 //Percorre grafo em profundidade para encontrar ciclo
 void percorreProfundidade(vertice *vert[], char *estacaoOrigem, int totalV){
 	int posAt, posTeste;
@@ -745,7 +753,7 @@ void percorreProfundidade(vertice *vert[], char *estacaoOrigem, int totalV){
 
 
 }
-
+*/
 void Prim (){
 	
 }
