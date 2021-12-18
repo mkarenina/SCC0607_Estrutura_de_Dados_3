@@ -381,7 +381,7 @@ void criaAresta(int codProxEst, vertice *vert[], int i, int distancia, char nome
 }
 
 //Funcao para funcionalidade 10
-int criaGrafoNaoDirecionado(FILE *arq, FILE *busca, vertice *vert[], int posVert){
+/*int criaGrafoNaoDirecionado(FILE *arq, FILE *busca, vertice *vert[], int posVert){
 	int tamRegistro, distancia, i, tamNomeLinha, codProxEst, codEstInt, retorno_erro, tamNomeEst;
 	char removido;
 	char nomeEst[64], nomeLinha[64], nomeProxEst[64];
@@ -412,7 +412,7 @@ int criaGrafoNaoDirecionado(FILE *arq, FILE *busca, vertice *vert[], int posVert
 
 			if(vert[i]==NULL){      //Insere novo vertice
 				i = ordenacaoVertice(nomeEst, vert);
-//>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+					//>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 				if(codProxEst!=-1){//Se existir codProxEst
 					//Criacao da aresta!
 					//cria (u,v)
@@ -439,7 +439,7 @@ int criaGrafoNaoDirecionado(FILE *arq, FILE *busca, vertice *vert[], int posVert
 					retorno_erro=aresta_integracao(busca, vert, codEstInt, i);
 					/*if(retorno_erro==1){
 						return 1;
-					}*/
+					}
 				}
 //>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 				if(codProxEst!=-1){//Se existir codProxEst
@@ -499,14 +499,14 @@ int criaGrafoNaoDirecionado(FILE *arq, FILE *busca, vertice *vert[], int posVert
 					retorno_erro=aresta_integracao(busca, vert, codEstInt, i);
 					/*if(retorno_erro==1){
 						return 1;
-					}*/
+					}
 				}
 			}
 			//printf("\n");
 		}
 	} 
 	return 0;
-}
+}*/
 
 //Cria o grafo, se tipografo -> 1 grafo nao ordenado
 int criaGrafo(FILE *arq, FILE *busca, vertice *vert[], int TipoGrafo){
@@ -756,9 +756,11 @@ int recBuscaProfundidade(vertice *vert[], char *origem, vert_visita *visitado[],
 		}
 		posTeste = percorreVertice(curr_a->nomeEst, vert);
 		if(visitado[posTeste]->cor==0){		//Se o vertice ainda nao foi analisado, vai para ele
+			avanco=curr_a;
 			strcpy(visitado[posTeste]->ANT, vert[posAt]->nomeEst);	//Atualizando struct visitado
 			visitado[posTeste]->cor = 1;
 			visitado[posTeste]->D = avanco->dist;
+			posAt=posTeste;
 
 			respostaRec = recBuscaProfundidade(vert, origem, visitado, posTeste);
 			if(respostaRec!=-1){		//Encontrou ciclo
@@ -827,6 +829,10 @@ void buscaProfundidade(vertice *vert[], char *estacaoOrigem, int totalV){
 	}
 	
 	posAt = percorreVertice(estacaoOrigem, vert);
+	if(posAt==-1){
+		printf("Nao encontrou vertice\n");
+		return;
+	}
 	visitado[posAt]=(vert_visita *)calloc(1,sizeof(vert_visita));
 	visitado[posAt]->D=0;
 	visitado[posAt]->cor=1;

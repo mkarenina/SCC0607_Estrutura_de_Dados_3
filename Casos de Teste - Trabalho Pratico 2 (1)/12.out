@@ -1,4 +1,19 @@
-Suzano, Calmon Viana, 2770
+Bras, Bresser-Mooca, 873
+Bresser-Mooca, Belem, 1825
+Belem, Tatuape, 1427
+Tatuape, Carrao, 1280
+Carrao, Penha, 2280
+Penha, Guilhermina-Esperança, 1183
+Guilhermina-Esperança, Patriarca-Vila Re, 1534
+Patriarca-Vila Re, Artur Alvin, 1722
+Artur Alvin, Corinthians-Itaquera, 1461
+Corinthians-Itaquera, Dom Bosco, 2390
+Dom Bosco, Jose Bonifacio, 1690
+Jose Bonifacio, Guaianases, 1700
+Guaianases, Antonio Gianetti Neto, 3770
+Antonio Gianetti Neto, Ferraz de Vasconcelos, 2320
+Ferraz de Vasconcelos, Poa, 3030
+Poa, Calmon Viana, 1160
 Calmon Viana, Aracare, 3070
 Aracare, Itaquaquecetuba, 2670
 Itaquaquecetuba, Engenheiro Manoel Feio, 2270
@@ -11,22 +26,11 @@ Comendador Ermelino, USP Leste, 2100
 USP Leste, Engenheiro Goulart, 2550
 Engenheiro Goulart, Guarulhos-Cecap, 7070
 Guarulhos-Cecap, Aeroporto-Guarulhos, 1690
-Calmon Viana, Poa, 1160
-Poa, Ferraz de Vasconcelos, 3030
-Ferraz de Vasconcelos, Antonio Gianetti Neto, 2320
-Antonio Gianetti Neto, Guaianases, 3770
-Guaianases, Jose Bonifacio, 1700
-Jose Bonifacio, Dom Bosco, 1690
-Dom Bosco, Corinthians-Itaquera, 2390
-Corinthians-Itaquera, Artur Alvin, 1461
-Artur Alvin, Patriarca-Vila Re, 1722
-Patriarca-Vila Re, Guilhermina-Esperança, 1534
-Guilhermina-Esperança, Penha, 1183
-Penha, Carrao, 2280
-Carrao, Tatuape, 1280
-Tatuape, Belem, 1427
-Belem, Bresser-Mooca, 1825
-Bresser-Mooca, Bras, 873
+Calmon Viana, Suzano, 2770
+Suzano, Jundiapeba, 5360
+Jundiapeba, Braz Cubas, 3470
+Braz Cubas, Mogi das Cruzes, 3330
+Mogi das Cruzes, Estudantes, 1360
 Bras, Juventus-Mooca, 1610
 Bras, Pedro II, 1044
 Pedro II, Se, 727
@@ -103,14 +107,31 @@ Santo Amaro, Giovanni Gronchi, 2263
 Giovanni Gronchi, Vila das Belezas, 1642
 Vila das Belezas, Campo Limpo, 1813
 Campo Limpo, Capao Redondo, 1436
-Santo Amaro, Joao Dias, 2240
-Joao Dias, Granja Julieta, 1700
-Granja Julieta, Morumbi, 1220
-Morumbi, Berrini, 1960
-Berrini, Vila Olimpia, 1360
-Vila Olimpia, Cidade Jardim, 885
-Cidade Jardim, Hebraica-Rebouças, 1500
-Hebraica-Rebouças, Pinheiros, 880
+Santo Amaro, Socorro, 1000
+Socorro, Jurubatuba, 1770
+Jurubatuba, Autodromo, 3940
+Autodromo, Primavera-Interlagos, 1910
+Primavera-Interlagos, Grajau, 1670
+Grajau, Mendes-Vila Natal, 2100
+Santa Cruz, Praça da arvore, 1312
+Praça da arvore, Saude, 896
+Saude, Sao Judas, 790
+Sao Judas, Conceiçao, 1096
+Conceiçao, Jabaquara, 1183
+Paraiso, Brigadeiro, 1015
+Brigadeiro, Trianon-Masp, 954
+Trianon-Masp, Consolaçao, 982
+Consolaçao, Clinicas, 1063
+Clinicas, Sumare, 769
+Sumare, Vila Madalena, 1489
+Consolaçao, Paulista, 0
+Paulista, Oscar Freire, 1195
+Oscar Freire, Fradique Coutinho, 878
+Fradique Coutinho, Faria Lima, 1557
+Faria Lima, Pinheiros, 866
+Pinheiros, Butanta, 878
+Butanta, Sao Paulo-Morumbi, 2471
+Sao Paulo-Morumbi, Vila Sonia, 1413
 Pinheiros, Cidade Universitaria, 1490
 Cidade Universitaria, Vila Lobos-Jaguare, 2470
 Vila Lobos-Jaguare, Ceasa, 1000
@@ -129,27 +150,13 @@ Jardim Silveira, Jandira, 1080
 Jandira, Sagrado Coraçao, 1470
 Sagrado Coraçao, Engenheiro Cardoso, 1660
 Engenheiro Cardoso, Itapevi, 1670
-Santo Amaro, Socorro, 1000
-Socorro, Jurubatuba, 1770
-Jurubatuba, Autodromo, 3940
-Autodromo, Primavera-Interlagos, 1910
-Primavera-Interlagos, Grajau, 1670
-Grajau, Mendes-Vila Natal, 2100
-Santa Cruz, Praça da arvore, 1312
-Praça da arvore, Saude, 896
-Saude, Sao Judas, 790
-Sao Judas, Conceiçao, 1096
-Conceiçao, Jabaquara, 1183
-Paraiso, Brigadeiro, 0
-Brigadeiro, Trianon-Masp, 954
-Trianon-Masp, Consolaçao, 982
-Consolaçao, Clinicas, 1063
-Clinicas, Sumare, 769
-Sumare, Vila Madalena, 1489
-Consolaçao, Paulista, 0
-Paulista, Oscar Freire, 1195
-Oscar Freire, Fradique Coutinho, 878
-Fradique Coutinho, Faria Lima, 1557
+Pinheiros, Hebraica-Rebouças, 880
+Hebraica-Rebouças, Cidade Jardim, 1500
+Cidade Jardim, Vila Olimpia, 885
+Vila Olimpia, Berrini, 1360
+Berrini, Morumbi, 1960
+Morumbi, Granja Julieta, 1220
+Granja Julieta, Joao Dias, 1700
 Se, Sao Bento, 739
 Sao Bento, Luz, 762
 Luz, Tiradentes, 658
@@ -160,7 +167,3 @@ Carandiru, Santana, 740
 Santana, Jardim Sao Paulo, 1474
 Jardim Sao Paulo, Parada Inglesa, 1057
 Parada Inglesa, Tucuruvi, 992
-Suzano, Jundiapeba, 5360
-Jundiapeba, Braz Cubas, 3470
-Braz Cubas, Mogi das Cruzes, 3330
-Mogi das Cruzes, Estudantes, 1360

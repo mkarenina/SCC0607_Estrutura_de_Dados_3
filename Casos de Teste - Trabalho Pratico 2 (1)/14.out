@@ -43,14 +43,31 @@ Santo Amaro, Giovanni Gronchi, 2263
 Giovanni Gronchi, Vila das Belezas, 1642
 Vila das Belezas, Campo Limpo, 1813
 Campo Limpo, Capao Redondo, 1436
-Santo Amaro, Joao Dias, 2240
-Joao Dias, Granja Julieta, 1700
-Granja Julieta, Morumbi, 1220
-Morumbi, Berrini, 1960
-Berrini, Vila Olimpia, 1360
-Vila Olimpia, Cidade Jardim, 885
-Cidade Jardim, Hebraica-Rebouças, 1500
-Hebraica-Rebouças, Pinheiros, 880
+Santo Amaro, Socorro, 1000
+Socorro, Jurubatuba, 1770
+Jurubatuba, Autodromo, 3940
+Autodromo, Primavera-Interlagos, 1910
+Primavera-Interlagos, Grajau, 1670
+Grajau, Mendes-Vila Natal, 2100
+Santa Cruz, Praça da arvore, 1312
+Praça da arvore, Saude, 896
+Saude, Sao Judas, 790
+Sao Judas, Conceiçao, 1096
+Conceiçao, Jabaquara, 1183
+Paraiso, Brigadeiro, 1015
+Brigadeiro, Trianon-Masp, 954
+Trianon-Masp, Consolaçao, 982
+Consolaçao, Clinicas, 1063
+Clinicas, Sumare, 769
+Sumare, Vila Madalena, 1489
+Consolaçao, Paulista, 0
+Paulista, Oscar Freire, 1195
+Oscar Freire, Fradique Coutinho, 878
+Fradique Coutinho, Faria Lima, 1557
+Faria Lima, Pinheiros, 866
+Pinheiros, Butanta, 878
+Butanta, Sao Paulo-Morumbi, 2471
+Sao Paulo-Morumbi, Vila Sonia, 1413
 Pinheiros, Cidade Universitaria, 1490
 Cidade Universitaria, Vila Lobos-Jaguare, 2470
 Vila Lobos-Jaguare, Ceasa, 1000
@@ -69,27 +86,13 @@ Jardim Silveira, Jandira, 1080
 Jandira, Sagrado Coraçao, 1470
 Sagrado Coraçao, Engenheiro Cardoso, 1660
 Engenheiro Cardoso, Itapevi, 1670
-Santo Amaro, Socorro, 1000
-Socorro, Jurubatuba, 1770
-Jurubatuba, Autodromo, 3940
-Autodromo, Primavera-Interlagos, 1910
-Primavera-Interlagos, Grajau, 1670
-Grajau, Mendes-Vila Natal, 2100
-Santa Cruz, Praça da arvore, 1312
-Praça da arvore, Saude, 896
-Saude, Sao Judas, 790
-Sao Judas, Conceiçao, 1096
-Conceiçao, Jabaquara, 1183
-Paraiso, Brigadeiro, 0
-Brigadeiro, Trianon-Masp, 954
-Trianon-Masp, Consolaçao, 982
-Consolaçao, Clinicas, 1063
-Clinicas, Sumare, 769
-Sumare, Vila Madalena, 1489
-Consolaçao, Paulista, 0
-Paulista, Oscar Freire, 1195
-Oscar Freire, Fradique Coutinho, 878
-Fradique Coutinho, Faria Lima, 1557
+Pinheiros, Hebraica-Rebouças, 880
+Hebraica-Rebouças, Cidade Jardim, 1500
+Cidade Jardim, Vila Olimpia, 885
+Vila Olimpia, Berrini, 1360
+Berrini, Morumbi, 1960
+Morumbi, Granja Julieta, 1220
+Granja Julieta, Joao Dias, 1700
 Vergueiro, Sao Joaquim, 843
 Sao Joaquim, Japao-Liberdade, 825
 Japao-Liberdade, Se, 544
