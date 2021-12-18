@@ -381,7 +381,7 @@ void criaAresta(int codProxEst, vertice *vert[], int i, int distancia, char nome
 }
 
 //Funcao para funcionalidade 10
-/*int criaGrafoNaoDirecionado(FILE *arq, FILE *busca, vertice *vert[], int posVert){
+int criaGrafoNaoDirecionado(FILE *arq, FILE *busca, vertice *vert[], int posVert){
 	int tamRegistro, distancia, i, tamNomeLinha, codProxEst, codEstInt, retorno_erro, tamNomeEst;
 	char removido;
 	char nomeEst[64], nomeLinha[64], nomeProxEst[64];
@@ -437,7 +437,7 @@ void criaAresta(int codProxEst, vertice *vert[], int i, int distancia, char nome
 
 				if(codEstInt!=-1){  //Existe estacao de integracao
 					retorno_erro=aresta_integracao(busca, vert, codEstInt, i);
-					/*if(retorno_erro==1){
+					if(retorno_erro==1){
 						return 1;
 					}
 				}
@@ -497,7 +497,7 @@ void criaAresta(int codProxEst, vertice *vert[], int i, int distancia, char nome
 				}
 				if(codEstInt!=-1){  //Existe estacao de integracao
 					retorno_erro=aresta_integracao(busca, vert, codEstInt, i);
-					/*if(retorno_erro==1){
+					if(retorno_erro==1){
 						return 1;
 					}
 				}
@@ -506,7 +506,7 @@ void criaAresta(int codProxEst, vertice *vert[], int i, int distancia, char nome
 		}
 	} 
 	return 0;
-}*/
+}
 
 //Cria o grafo, se tipografo -> 1 grafo nao ordenado
 int criaGrafo(FILE *arq, FILE *busca, vertice *vert[], int TipoGrafo){
@@ -930,7 +930,7 @@ void caminho(){
 
 
 int main(){
-	char funcionalidade;
+	int funcionalidade;
 	char in[32];
 	int status;
 	int qtdeEst, i, retorno_erro;
@@ -944,13 +944,14 @@ int main(){
 	FILE *busca;
 
 
-	scanf("%c", &funcionalidade);
+	scanf("%d ", &funcionalidade);
 
+	printf("Funcionalidade:%d \n", funcionalidade);
 	//<<<<<<<<<<<<<<<<<<<<<<<<<< CHAMADA FUNCIONALIDADE >>>>>>>>>>>>>>>>>>>>>>>>
 	switch (funcionalidade){
 
 		//<<<<<<<<<<<<< funcionalidade [7]
-		case '7': //Criar grafo
+		case 7: //Criar grafo
 			scanf("%s",in);
 			arq = fopen(in, "rb");
 			busca = fopen(in, "rb");
@@ -984,8 +985,8 @@ int main(){
 			fclose(busca);
 			break;   
 
-		//<<<<<<<<<<<<< funcionalidade [2]
-		case '8': //Criar grafo
+		//<<<<<<<<<<<<< funcionalidade [8]
+		case 8: //Criar grafo
 			scanf("%s",in);
 			arq = fopen(in, "rb");
 			busca = fopen(in, "rb");
@@ -1021,7 +1022,7 @@ int main(){
 			fclose(busca);
 			break;
 
-		case '9':
+		case 9:
 			scanf("%s",in);
 			arq = fopen(in, "rb");
 			busca = fopen(in, "rb");
@@ -1056,9 +1057,45 @@ int main(){
 
 			break;
 
-		/*case '10':
+		case 10:
+			scanf("%s",in);
+			arq = fopen(in, "rb");
+			busca = fopen(in, "rb");
+
+			scanf("%s",nomeEstacaoOrigem);
+			scan_quote_string(origem);
+		  
+			status = checkFile(arq);
+			if(status==0){
+				printf("Falha na execução da funcionalidade.\n");
+
+				fclose(arq);
+				fclose(busca);
+				break;
+			}
+
+			fseek(arq, 9, SEEK_SET);
+			fread(&qtdeEst, 1, sizeof(int), arq);  //total de vertices
+
+		   retorno_erro=criaGrafoNaoDirecionado(arq, busca, ver, 1);
+			if(retorno_erro==1){
+				printf("Falha na execução da funcionalidade.\n");
+				return 0;
+			}
 			
-			break;*/
+			for(i=0; i<qtdeEst; i++){
+				printGrafo(ver, i);
+				printf("\n");
+			}
+			
+			//Prim();
+			
+			fclose(arq);
+			fclose(busca);
+
+			break;
+			
+			break;
 			
 	} 
 
