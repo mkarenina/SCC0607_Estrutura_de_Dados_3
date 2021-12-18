@@ -385,11 +385,11 @@ void criaAresta(int codProxEst, vertice *vert[], int i, int distancia, char nome
 	return;
 }
 
-int ConexaoVertices(vertice vertOrigem, vertice VertDest){
+int ConexaoVertices(vertice *vertOrigem, vertice *VertDest){
 	aresta_ptr atual = vertOrigem->first;
 
 	while(atual!=NULL){
-		if(strcmp(atual->nomeEst, VertDest.nomeEst)==0){
+		if(strcmp(atual->nomeEst, VertDest->nomeEst)==0){
 			return 1;
 		}
 		atual=atual->prox;
@@ -399,21 +399,25 @@ int ConexaoVertices(vertice vertOrigem, vertice VertDest){
 
 //Funcao para funcionalidade 10
 void GrafoNaoDirecionado(vertice *vert[], int qtdeVert){
-	int i, existeConec, posVert;
-	vertice vertAt;
-	aresta_ptr atual;
+	int i, j, existeConec, posVert;
+	vertice *vertAt;
+	aresta_ptr atual, existeAresta;
 
 	for(i=0; i<qtdeVert; i++){
 		vertAt=vert[i];
-		atual=vertAt.first;
+		atual=vertAt->first;
 		while(atual!=NULL){
 			posVert=percorreVertice(atual->nomeEst, vert);
 			existeConec=ConexaoVertices(vert[posVert], vertAt);
 			if(!existeConec){
-
+                criaAresta(0, vert, posVert, atual->dist, atual->nomeLinha[0], NULL, vertAt->nomeEst);
+                existeAresta = percorreAresta(vertAt->nomeEst, vert, posVert);
+                for(j=1; atual->nomeLinha[j][0]!='\0'; j++){
+                	ordenacaoLinhas(existeAresta, atual->nomeLinha[j]);
+                }
 			}
+			atual=atual->prox;
 		}
-		
 	}
 }
 
@@ -466,7 +470,7 @@ int criaGrafo(FILE *arq, FILE *busca, vertice *vert[], int TipoGrafo){
 					strcpy(insercao->nomeLinha[0], nomeLinha);
 					insercao->prox = NULL;
 					vert[i]->first = insercao;*/
-					criaAresta(codProxEst, vert, i, distancia, nomeLinha, busca);
+					criaAresta(codProxEst, vert, i, distancia, nomeLinha, busca, NULL);
 				}else{
 						vert[i]->first = NULL;
 				}
@@ -486,7 +490,7 @@ int criaGrafo(FILE *arq, FILE *busca, vertice *vert[], int TipoGrafo){
 						ordenacaoLinhas(existeAresta, nomeLinha);
 					}else{                  //Aresta n existe, precisa ser criada e add corretamente
 						//Criacao da aresta!
-						//criaAresta(codProxEst, vert, i, distancia, nomeLinha, busca);
+						criaAresta(codProxEst, vert, i, distancia, nomeLinha, busca, NULL);
 						/*retorno_erro = buscar(codProxEst, busca, nomeProxEst);
 						if (retorno_erro==1){
 							return 1;
@@ -854,8 +858,7 @@ int main(){
 
 
 	scanf("%d ", &funcionalidade);
-
-	printf("Funcionalidade:%d \n", funcionalidade);
+    
 	//<<<<<<<<<<<<<<<<<<<<<<<<<< CHAMADA FUNCIONALIDADE >>>>>>>>>>>>>>>>>>>>>>>>
 	switch (funcionalidade){
 
@@ -883,6 +886,8 @@ int main(){
 				printf("Falha na execução da funcionalidade.\n");
 				return 0;
 			}
+
+            GrafoNaoDirecionado(ver, qtdeEst);
 			
 			for(i=0; i<qtdeEst; i++){
 				printGrafo(ver, i);
@@ -986,11 +991,13 @@ int main(){
 			fseek(arq, 9, SEEK_SET);
 			fread(&qtdeEst, 1, sizeof(int), arq);  //total de vertices
 
-		   retorno_erro=criaGrafoNaoDirecionado(arq, busca, ver, 1);
+		    retorno_erro=criaGrafo(arq, busca, ver, 1);
 			if(retorno_erro==1){
 				printf("Falha na execução da funcionalidade.\n");
 				return 0;
 			}
+
+            GrafoNaoDirecionado(ver, qtdeEst);
 			
 			for(i=0; i<qtdeEst; i++){
 				printGrafo(ver, i);

@@ -22,7 +22,6 @@ typedef struct a{
 //struct de vertices do grafo 
 typedef struct v{
 	char nomeEst[64];
-	int qtdeArestas;
 	aresta *first;
 } vertice;
 
@@ -32,6 +31,12 @@ typedef struct c{
 	int D;
 	//int valorAnt;
 } vert_visita;
+
+typedef struct b{
+	bool conn;
+	int pai;
+	int dist;
+} aux_prim;
 
 typedef aresta *aresta_ptr;
 
@@ -345,17 +350,22 @@ int percorreVertice (char origem[], vertice *vert[]){
 }
 
 //Cria aresta (sabendo que ela nao existe previamente)
-void criaAresta(int codProxEst, vertice *vert[], int i, int distancia, char nomeLinha[], FILE *busca){
+void criaAresta(int codProxEst, vertice *vert[], int i, int distancia, char nomeLinha[], FILE *busca, char *nomeEst){
 	char nomeProxEst[64];
 	int retorno_erro;
 	aresta_ptr insercao, arestaAnterior;
 
 	arestaAnterior=vert[i]->first;
 	
-	retorno_erro = buscar(codProxEst, busca, nomeProxEst);
-	if (retorno_erro==1){
-		return;       //Nao encontrou nomeEst com esse codigo, pular
+	if(busca){	//Percorrer arquivo para encontrar
+		retorno_erro = buscar(codProxEst, busca, nomeProxEst);
+		if (retorno_erro==1){
+			return;       //Nao encontrou nomeEst com esse codigo, pular
+		}
+	}else{
+		strcpy(nomeProxEst, nomeEst);
 	}
+	
 	
 	//Encontrou nome da estacao que sera add na aresta
 	
@@ -380,132 +390,40 @@ void criaAresta(int codProxEst, vertice *vert[], int i, int distancia, char nome
 	return;
 }
 
-//Funcao para funcionalidade 10
-int criaGrafoNaoDirecionado(FILE *arq, FILE *busca, vertice *vert[], int posVert){
-	int tamRegistro, distancia, i, tamNomeLinha, codProxEst, codEstInt, retorno_erro, tamNomeEst;
-	char removido;
-	char nomeEst[64], nomeLinha[64], nomeProxEst[64];
-	aresta_ptr insercao = NULL;
-	aresta_ptr existeAresta;
+int ConexaoVertices(vertice *vertOrigem, vertice *VertDest){
+	aresta_ptr atual = vertOrigem->first;
 
-	pula_cabecalho(arq);
-	
-	while((removido = getc(arq)) != EOF){
-		fread(&tamRegistro, 1, sizeof(int), arq);
-		if(removido==1){    //Se registro foi removido, pular
-			fseek(arq, tamRegistro, SEEK_CUR);
-		}else{
-			fseek(arq, 16, SEEK_CUR);   //Chega na distancia até prox estacao
-			fread(&codProxEst, 1, sizeof(int), arq);
-			fread(&distancia, 1, sizeof(int), arq);
-			fseek(arq, 4, SEEK_CUR);    //Pula codLinhaIntegra
-			fread(&codEstInt, 1, sizeof(int), arq);
-			tamNomeEst=read_field(arq, '|', nomeEst);
-			nomeEst[tamNomeEst-1]='\0';
-			tamNomeLinha = read_field(arq, '|', nomeLinha);
-			nomeLinha[tamNomeLinha-1]='\0';
-
-			i=0;
-			while(vert[i]!=NULL && strcmp(vert[i]->nomeEst, nomeEst)!=0){
-				i++;
-			}
-
-			if(vert[i]==NULL){      //Insere novo vertice
-				i = ordenacaoVertice(nomeEst, vert);
-					//>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
-				if(codProxEst!=-1){//Se existir codProxEst
-					//Criacao da aresta!
-					//cria (u,v)
-					retorno_erro = buscar(codProxEst, busca, nomeProxEst);
-					if (retorno_erro==1){
-						return 1;
-					}
-
-					//Encontrou nome da estacao que sera add na aresta
-					insercao = (aresta_ptr)calloc(1,sizeof(aresta));
-
-					insercao->dist = distancia;
-					strcpy(insercao->nomeEst, nomeProxEst);
-					memset(insercao->nomeLinha, '\0', sizeof(insercao->nomeLinha));
-					strcpy(insercao->nomeLinha[0], nomeLinha);
-					insercao->prox = NULL;
-					vert[i]->first = insercao;
-					//criaAresta(codProxEst, vert, i, distancia, nomeLinha, busca);
-				}else{
-						vert[i]->first = NULL;
-				}
-
-				if(codEstInt!=-1){  //Existe estacao de integracao
-					retorno_erro=aresta_integracao(busca, vert, codEstInt, i);
-					if(retorno_erro==1){
-						return 1;
-					}
-				}
-//>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
-				if(codProxEst!=-1){//Se existir codProxEst
-					//Criacao da aresta!
-					//cria (v,u)
-					retorno_erro = buscar(codProxEst, busca, nomeProxEst);
-					if (retorno_erro==1){
-						return 1;
-					}
-
-					//Encontrou nome da estacao que sera add na aresta
-					insercao = (aresta_ptr)calloc(1,sizeof(aresta));
-
-					insercao->dist = distancia;
-					strcpy(insercao->nomeEst, nomeEst);
-					memset(insercao->nomeLinha, '\0', sizeof(insercao->nomeLinha));
-					strcpy(insercao->nomeLinha[0], nomeLinha);
-					insercao->prox = NULL;
-					vert[i]->first = insercao;
-					//criaAresta(codProxEst, vert, i, distancia, nomeLinha, busca);
-				}else{
-						vert[i]->first = NULL;
-				}
-
-			}else{  //Vértice já existe, só inserir a aresta atual
-				if(codProxEst!=-1){         //Se existir nome da linha
-					//Funcao que percorre arestas, retorna 0 se nao existe aresta com msm nomeEst e 1 se existe aresta c msm nomeEst
-					existeAresta = percorreAresta(nomeProxEst, vert, i);
-					if(existeAresta!=NULL){    //Aresta ja existe, so add nova linha
-						ordenacaoLinhas(existeAresta, nomeLinha);
-					}else{                  //Aresta n existe, precisa ser criada e add corretamente
-						//Criacao da aresta!
-						criaAresta(codProxEst, vert, i, distancia, nomeLinha, busca);
-						retorno_erro = buscar(codProxEst, busca, nomeProxEst);
-						if (retorno_erro==1){
-							return 1;
-						}
-
-						//Encontrou nome da estacao que sera add na aresta
-						
-						//Aloca memória e insere os dados
-						insercao = (aresta_ptr)calloc(1,sizeof(aresta));
-						insercao->dist = distancia;
-						strcpy(insercao->nomeEst, nomeProxEst);
-						memset(insercao->nomeLinha, '\0', sizeof(insercao->nomeLinha));
-						strcpy(insercao->nomeLinha[0], nomeLinha);
-						insercao->prox = NULL;
-
-						//Aumenta qtde arestas do vertice atual
-						vert[i]->qtdeArestas++;
-
-						//Ordena a aresta alocada, arrumando os ponteiros de insercao
-						ordenacaoAresta(insercao, vert, i, nomeLinha);
-					}
-				}
-				if(codEstInt!=-1){  //Existe estacao de integracao
-					retorno_erro=aresta_integracao(busca, vert, codEstInt, i);
-					if(retorno_erro==1){
-						return 1;
-					}
-				}
-			}
-			//printf("\n");
+	while(atual!=NULL){
+		if(strcmp(atual->nomeEst, VertDest->nomeEst)==0){
+			return 1;
 		}
-	} 
+		atual=atual->prox;
+	}
 	return 0;
+}
+
+//Funcao para funcionalidade 10
+void GrafoNaoDirecionado(vertice *vert[], int qtdeVert){
+	int i, j, existeConec, posVert;
+	vertice *vertAt;
+	aresta_ptr atual, existeAresta;
+
+	for(i=0; i<qtdeVert; i++){
+		vertAt=vert[i];
+		atual=vertAt->first;
+		while(atual!=NULL){
+			posVert=percorreVertice(atual->nomeEst, vert);
+			existeConec=ConexaoVertices(vert[posVert], vertAt);
+			if(!existeConec){
+                criaAresta(0, vert, posVert, atual->dist, atual->nomeLinha[0], NULL, vertAt->nomeEst);
+                existeAresta = percorreAresta(vertAt->nomeEst, vert, posVert);
+                for(j=1; atual->nomeLinha[j][0]!='\0'; j++){
+                	ordenacaoLinhas(existeAresta, atual->nomeLinha[j]);
+                }
+			}
+			atual=atual->prox;
+		}
+	}
 }
 
 //Cria o grafo, se tipografo -> 1 grafo nao ordenado
@@ -543,7 +461,7 @@ int criaGrafo(FILE *arq, FILE *busca, vertice *vert[], int TipoGrafo){
 
 				if(codProxEst!=-1){//Se existir codProxEst
 					//Criacao da aresta!
-					retorno_erro = buscar(codProxEst, busca, nomeProxEst);
+					/*retorno_erro = buscar(codProxEst, busca, nomeProxEst);
 					if (retorno_erro==1){
 						return 1;
 					}
@@ -556,8 +474,8 @@ int criaGrafo(FILE *arq, FILE *busca, vertice *vert[], int TipoGrafo){
 					memset(insercao->nomeLinha, '\0', sizeof(insercao->nomeLinha));
 					strcpy(insercao->nomeLinha[0], nomeLinha);
 					insercao->prox = NULL;
-					vert[i]->first = insercao;
-					//criaAresta(codProxEst, vert, i, distancia, nomeLinha, busca);
+					vert[i]->first = insercao;*/
+					criaAresta(codProxEst, vert, i, distancia, nomeLinha, busca, NULL);
 				}else{
 						vert[i]->first = NULL;
 				}
@@ -577,8 +495,8 @@ int criaGrafo(FILE *arq, FILE *busca, vertice *vert[], int TipoGrafo){
 						ordenacaoLinhas(existeAresta, nomeLinha);
 					}else{                  //Aresta n existe, precisa ser criada e add corretamente
 						//Criacao da aresta!
-						//criaAresta(codProxEst, vert, i, distancia, nomeLinha, busca);
-						retorno_erro = buscar(codProxEst, busca, nomeProxEst);
+						criaAresta(codProxEst, vert, i, distancia, nomeLinha, busca, NULL);
+						/*retorno_erro = buscar(codProxEst, busca, nomeProxEst);
 						if (retorno_erro==1){
 							return 1;
 						}
@@ -597,7 +515,7 @@ int criaGrafo(FILE *arq, FILE *busca, vertice *vert[], int TipoGrafo){
 						vert[i]->qtdeArestas++;
 
 						//Ordena a aresta alocada, arrumando os ponteiros de insercao
-						ordenacaoAresta(insercao, vert, i, nomeLinha);
+						ordenacaoAresta(insercao, vert, i, nomeLinha);*/
 					}
 				}
 				if(codEstInt!=-1){  //Existe estacao de integracao
@@ -611,11 +529,6 @@ int criaGrafo(FILE *arq, FILE *busca, vertice *vert[], int TipoGrafo){
 		}
 	} 
 	return 0;
-}
-
-//Printa estacoes somente
-void printEstacoes(){
-	
 }
 
 void printBusca(char *destino, char *printErro, int destPos, char *origem, vertice *vet[], int conectado, vert_visita *visitado[]){
@@ -672,7 +585,7 @@ void printBusca(char *destino, char *printErro, int destPos, char *origem, verti
 }
 
 //Dijkstra que percorre o vetor até achar menor caminho entre origem e destino
-void Dijkstra(char origem[], char destino[], vertice *vet[], int total_vertices, int total_arestas){
+void Dijkstra(char origem[], char destino[], vertice *vet[], int total_vertices){
 	int pos;            //Posicao do vertice atual que o Dijkstra está analisando
 	int running,tmp, a, curr_int;
 	int cont = 0;
@@ -762,12 +675,18 @@ int recBuscaProfundidade(vertice *vert[], char *origem, vert_visita *visitado[],
 	while(curr_a!=NULL){	//Percorre as arestas para pegar a de menor caminho
 		if(strcmp(curr_a->nomeEst, origem)==0){	//Encontrou ciclo!
 			posTeste = percorreVertice(curr_a->nomeEst, vert);
+			if(posTeste==-1){	//Nao encontrou o vertice que estamos buscando
+				return -1;
+			}
 			strcpy(visitado[posTeste]->ANT, vert[posAt]->nomeEst);	//Atualizando struct visitado
 			visitado[posTeste]->cor = 1;
 			visitado[posTeste]->D = curr_a->dist;
 			return posTeste;
 		}
 		posTeste = percorreVertice(curr_a->nomeEst, vert);
+		if(posTeste==-1){	//Nao encontrou o vertice que estamos buscando
+				return -1;
+		}
 		if(visitado[posTeste]->cor==0){		//Se o vertice ainda nao foi analisado, vai para ele
 			avanco=curr_a;
 			strcpy(visitado[posTeste]->ANT, vert[posAt]->nomeEst);	//Atualizando struct visitado
@@ -862,71 +781,95 @@ void buscaProfundidade(vertice *vert[], char *estacaoOrigem, int totalV){
 
 }
 
-/*void Prim (elem lista[], char cid[], int tam, elem lista_prim[]){
-    int i, j=0,k, max;
-    elem_ptr atual=NULL, inserir_prim;
-    int vertices_usados[tam];
-    char cidat[64];
+aresta_ptr Prim (char origem[], vertice *verts[], int total_vertices){
+	aresta_ptr res[total_vertices] = calloc(sizeof(aresta),total_vertices);
+ 	aux_prim vet[total_vertices];
+	int min, pos, tmpPos;
+	aresta *aresta;
+	int i,j;
+	
+	//inicialização
+	for(i = 0; i < total_vertices; i ++){
+		vet[i].conn = false;
+		vet[i].pai  = -1;
+		vet[i].dist = INT_MAX/2;
+	}
 
-    memset(vertices_usados, -1, sizeof(int)*tam);
+	pos = percorreVertice(origem, verts);
 
+	if(pos==-1){
+		//printf("Falha percorre Vertice.");
+	}
 
+	vet[pos].conn = true;
+	vet[pos].dist = 0;
 
-    while(j<2){       //enquanto n�o s�o analisados todos os v�rtices
-        for(i=0;i<tam;i++){
-            if(strcmp(lista[i].cidade, cid)==0){
-                break;
-            }
-        }
-        if(strcmp(lista[i].cidade, cid)!=0){
-            printf("Cidade inexistente.");
-            return;
-        }
+	aresta = verts[pos]->first;
+	while(aresta!= NULL){
+		tmpPos = percorreVertice(aresta->nomeEst, verts);
+		vet[tmpPos].dist = aresta->dist;
+		vet[tmpPos].pai = pos;
+		aresta = aresta->prox;
+	}
 
-        vertices_usados[j]=i;
+	while(true){
+		min = INT_MAX/4;
+		pos = -1;
+		for(i = 0; i < total_vertices; i++){
+			if(vet[i].conn = false && vet[i].dist < min){
+				min = vet[i].dist;
+				pos = i;
+			}
+		}
+		if(pos == -1){
+			break;
+		}
 
-        for(k=0; vertices_usados[k]!=-1; k++){
-            //tirar_lista(lista, lista[vertices_usados[k]].cidade, tam, vertices_usados);
-        }
+		vet[pos].conn = true;
+	
+		while(aresta!= NULL){
+			tmpPos = percorreVertice(aresta->nomeEst, verts);
+			if(vet[tmpPos].conn == false && aresta->dist < vet[tmpPos].dist){
+				vet[tmpPos].dist = aresta->dist;
+				vet[tmpPos].pai = pos;
+				aresta = aresta->prox;
+			}
+		}
+	}
 
-        printf("verticeusado: %s\n", lista[i].cidade);
-        j++;
-        max=99999;
+	for(i = 0; i < total_vertices; i++){
+		if(vet[i].conn = false){
+			printf("Falha na execução da funcionalidade.");
+			return NULL;
+		}
+	}
+	
 
-        for(k=0; vertices_usados[k]!=-1; k++){  //enquanto a an�lise dos elementos do vetor de v�rtices usados n�o acabar
-            i=vertices_usados[k];
+	//pos = percorreVertice(origem, verts);
 
-            atual=lista[i].nxt;
+	for(i = 0; i < total_vertices; i++){
+		pos = vet[i].pai;
+		if(res[pos] == NULL){
+			res[pos] = (aresta_ptr)calloc(sizeof(aresta),1);
+			strcpy(res[pos]->nomeEst, verts[i]->nomeEst);
+			res[pos]->dist = vet[i].dist;
+		}else{
+			aresta_ptr tmpAr = res[pos];
+			while(tmpAr->prox != NULL){
+				tmpAr = tmpAr->prox;
+			}
 
-            while(atual!=NULL){     //enquanto n�o acaba a an�lise de todos os componentes daquela lista encadeada
-                if(max>atual->dist){
-                    max=atual->dist;
-                    inserir_prim=atual;
-                    inserir_prim->nxt=NULL;
-                    strcpy(cidat, lista[i].cidade);
-                }
-                atual=atual->nxt;
-            }
+			tmpAr->prox = (aresta_ptr)calloc(sizeof(aresta),1);
+			tmpAr = tmpAr->prox;
 
-        }
-
-        criar_lista(lista_prim, lista[i].cidade, lista[i].estado, inserir_prim);
-        //tirar_lista(lista, cid, tam, vertices_usados);
-
-        strcpy(cid, inserir_prim->cidade);
-        printf("%s\n", cid);
-        print_grafo(lista_prim);
-        printf("\n");
-        print_grafo(lista);
-    }
-
-    print_grafo(lista_prim);
-
-}*/
-
-void caminho(){
-
+			strcpy(tmpAr->nomeEst, verts[i]->nomeEst);
+			tmpAr->dist = vet[i].dist;
+		}	
+	}
+	
+	return res;
 }
+
 
 
 int main(){
@@ -951,7 +894,7 @@ int main(){
 	switch (funcionalidade){
 
 		//<<<<<<<<<<<<< funcionalidade [7]
-		case 7: //Criar grafo
+		case 7:
 			scanf("%s",in);
 			arq = fopen(in, "rb");
 			busca = fopen(in, "rb");
@@ -986,7 +929,7 @@ int main(){
 			break;   
 
 		//<<<<<<<<<<<<< funcionalidade [8]
-		case 8: //Criar grafo
+		case 8:
 			scanf("%s",in);
 			arq = fopen(in, "rb");
 			busca = fopen(in, "rb");
@@ -1007,7 +950,6 @@ int main(){
 
 			fseek(arq, 9, SEEK_SET);
 			fread(&qtdeEst, 1, sizeof(int), arq);  //total de vertices
-			fread(&qtdePares, 1, sizeof(int), arq); //total de arestas
 
 		   retorno_erro=criaGrafo(arq, busca, ver, 1);
 			if(retorno_erro==1){
@@ -1015,8 +957,7 @@ int main(){
 				return 0;
 			}
 			
-			//char origem[], char destino[], vertice first[], int total_vertices, int total_arestas
-			Dijkstra(origem, destino, ver, qtdeEst, qtdePares);
+			Dijkstra(origem, destino, ver, qtdeEst);
 			
 			fclose(arq);
 			fclose(busca);
@@ -1048,8 +989,6 @@ int main(){
 				return 0;
 			}
 			
-			//char origem[], char destino[], vertice first[], int total_vertices, int total_arestas
-			//printf("Entrou buscaProf\n");
 			buscaProfundidade(ver, origem, qtdeEst);
 			
 			fclose(arq);
@@ -1077,17 +1016,19 @@ int main(){
 			fseek(arq, 9, SEEK_SET);
 			fread(&qtdeEst, 1, sizeof(int), arq);  //total de vertices
 
-		   retorno_erro=criaGrafoNaoDirecionado(arq, busca, ver, 1);
+		    retorno_erro=criaGrafo(arq, busca, ver, 1);
 			if(retorno_erro==1){
 				printf("Falha na execução da funcionalidade.\n");
 				return 0;
 			}
+
+            GrafoNaoDirecionado(ver, qtdeEst);
 			
 			for(i=0; i<qtdeEst; i++){
 				printGrafo(ver, i);
 				printf("\n");
 			}
-			
+
 			//Prim();
 			
 			fclose(arq);
