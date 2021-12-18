@@ -620,6 +620,7 @@ void printEstacoes(){
 
 void printBusca(char *destino, char *printErro, int destPos, char *origem, vertice *vet[], int conectado, vert_visita *visitado[]){
 	int cont=0;
+	int Dtot=0;
 	int pos = destPos;
 	int i, j;
 
@@ -628,12 +629,16 @@ void printBusca(char *destino, char *printErro, int destPos, char *origem, verti
 			break;
 		}
         cont ++;
+		Dtot+=visitado[pos]->D;
+		//printf("Visitado: %d\n", visitado[pos]->D);
 		pos=percorreVertice(visitado[pos]->ANT, vet);
 		//if(strcmp(visitado[pos]->ANT, destino)==0 || strcmp(visitado[pos]->ANT, origem)==0){
 		
 	}
 
 	cont ++;
+	Dtot+=visitado[pos]->D;
+	//printf("Visitado: %d\n", visitado[pos]->D);
 	pos=percorreVertice(visitado[pos]->ANT, vet);
 
 	if(conectado==0 || conectado==-1){	//Nao encontrou estacao
@@ -648,7 +653,12 @@ void printBusca(char *destino, char *printErro, int destPos, char *origem, verti
 
 	printf("Numero de estacoes que serao percorridas: %d\n", cont );
 	
-	printf("Distancia que sera percorrida: %d\n", visitado[destPos]->D);
+	if(strcmp(destino, origem)==0){
+		printf("Distancia que sera percorrida: %d\n", Dtot);
+	}else{
+		printf("Distancia que sera percorrida: %d\n", visitado[destPos]->D);
+	}
+	
 
 	for(i = cont-1; i >= 0; i--){
 		pos = destPos;
@@ -686,7 +696,7 @@ void Dijkstra(char origem[], char destino[], vertice *vet[], int total_vertices,
 	pos=percorreVertice(origem, vet);
 
 	if(pos==-1){
-		printf("Falha percorre Vertice.");
+		//printf("Falha percorre Vertice.");
 	}
 
 	curr_v = vet[pos];
@@ -748,10 +758,13 @@ int recBuscaProfundidade(vertice *vert[], char *origem, vert_visita *visitado[],
 	int posTeste, respostaRec;
 	aresta_ptr curr_a = vert[posAt]->first;
 	aresta_ptr avanco = NULL;
-
+	
 	while(curr_a!=NULL){	//Percorre as arestas para pegar a de menor caminho
 		if(strcmp(curr_a->nomeEst, origem)==0){	//Encontrou ciclo!
 			posTeste = percorreVertice(curr_a->nomeEst, vert);
+			strcpy(visitado[posTeste]->ANT, vert[posAt]->nomeEst);	//Atualizando struct visitado
+			visitado[posTeste]->cor = 1;
+			visitado[posTeste]->D = curr_a->dist;
 			return posTeste;
 		}
 		posTeste = percorreVertice(curr_a->nomeEst, vert);
@@ -760,11 +773,10 @@ int recBuscaProfundidade(vertice *vert[], char *origem, vert_visita *visitado[],
 			strcpy(visitado[posTeste]->ANT, vert[posAt]->nomeEst);	//Atualizando struct visitado
 			visitado[posTeste]->cor = 1;
 			visitado[posTeste]->D = avanco->dist;
-			posAt=posTeste;
 
 			respostaRec = recBuscaProfundidade(vert, origem, visitado, posTeste);
 			if(respostaRec!=-1){		//Encontrou ciclo
-				printf("Encontrou ciclo!\n");
+				//printf("Encontrou ciclo!\n");
 				return respostaRec;
 			}
 		}
@@ -830,20 +842,20 @@ void buscaProfundidade(vertice *vert[], char *estacaoOrigem, int totalV){
 	
 	posAt = percorreVertice(estacaoOrigem, vert);
 	if(posAt==-1){
-		printf("Nao encontrou vertice\n");
+		//printf("Nao encontrou vertice\n");
 		return;
 	}
-	visitado[posAt]=(vert_visita *)calloc(1,sizeof(vert_visita));
+	//visitado[posAt]=(vert_visita *)calloc(1,sizeof(vert_visita));
 	visitado[posAt]->D=0;
 	visitado[posAt]->cor=1;
 
 	curr_a=vert[posAt]->first;
 	avanco = curr_a;
 
-	printf("Entrando recursao\n");
+	//printf("Entrando recursao\n");
 	resposta = recBuscaProfundidade(vert, estacaoOrigem, visitado, posAt);
 
-	printf("Saiu recursao\n");
+	//printf("Saiu recursao\n");
 	printBusca(estacaoOrigem, "Nao existe um ciclo a partir da estacao de origem.", resposta, estacaoOrigem, vert, resposta, visitado);
 	
 	return;
@@ -1036,7 +1048,7 @@ int main(){
 			}
 			
 			//char origem[], char destino[], vertice first[], int total_vertices, int total_arestas
-			printf("Entrou buscaProf\n");
+			//printf("Entrou buscaProf\n");
 			buscaProfundidade(ver, origem, qtdeEst);
 			
 			fclose(arq);

@@ -1,0 +1,85 @@
+CodEstacao,NomeEstacao,CodLinha,NomeLinha,CodProxEst,DistanciaProxEst,CodLinhaInteg,CodEstacaoInteg
+1,Tucuruvi,1,Azul,2,992,,
+2,Parada Inglesa,1,Azul,3,1057,,
+3,Jardim Sao Paulo,1,Azul,4,1474,,
+6,Portuguesa-Tiete,1,Azul,7,1245,,
+8,Tiradentes,1,Azul,9,658,,
+9,Luz,1,Azul,10,762,4,55
+10,Sao Bento,1,Azul,11,739,,
+11,Se,1,Azul,12,544,3,43
+23,Jabaquara,1,Azul,,,,
+24,Vila Madalena,2,Verde,25,1489,,
+26,Clinicas,2,Verde,27,1063,,
+28,Trianon-Masp,2,Verde,29,954,,
+29,Brigadeiro,2,Verde,30,1015,,
+31,Ana Rosa,2,Verde,32,1526,1,16
+33,Santos-Imigrantes,2,Verde,34,1121,,
+34,Alto do Ipiranga,2,Verde,35,900,,
+41,Republica,3,Vermelha,42,606,4,56
+42,Anhangabau,3,Vermelha,43,652,,
+53,Artur Alvin,3,Vermelha,54,1461,,
+54,Corinthians-Itaquera,3,Vermelha,,,11,169
+55,Luz,4,Amarela,56,1257,1,9
+57,Higienopolis-Mackenzie,4,Amarela,58,1226,,
+58,Paulista,4,Amarela,59,1195,2,27
+60,Fradique Coutinho,4,Amarela,61,1557,,
+61,Faria Lima,4,Amarela,61,866,,
+67,Campo Limpo,5,Lilas,68,1813,,
+68,Vila das Belezas,5,Lilas,69,1642,,
+69,Giovanni Gronchi,5,Lilas,70,2263,,
+70,Santo Amaro,5,Lilas,71,1246,9,146
+80,Hospital Sao Paulo,5,Lilas,81,802,,
+81,Santa Cruz,5,Lilas,82,1019,1,18
+82,Chacara Klabin,5,Lilas,,,2,32
+87,Vila Tostoi,15,Prata,88,1210,,
+88,Vila Uniao,15,Prata,89,947,,
+89,Jardim Planalto,15,Prata,90,1300,,
+91,Fazenda da Juta,15,Prata,92,1210,,
+92,Sao Mateus,15,Prata,93,1800,,
+93,Jardim Colonial,15,Prata,,,,
+101,Caieiras,7,Rubi,102,4730,,
+103,Vila Aurora,7,Rubi,104,2120,,
+105,Vila Clarice,7,Rubi,106,2820,,
+106,Pirituba,7,Rubi,107,2150,,
+108,Lapa,7,Rubi,109,1640,8,115
+109,Agua Branca,7,Rubi,110,2300,,
+115,Lapa,8,Diamante,116,2450,7,108
+116,Domingos de Moras,8,Diamante,117,1790,,
+117,Imperatriz Leopoldina,8,Diamante,118,2870,,
+118,Presidente Altino,8,Diamante,119,1680,9,134
+122,General Miguel Costa,8,Diamante,123,2180,,
+123,Carapicuiba,8,Diamante,124,1350,,
+124,Santa Terezinha,8,Diamante,125,1080,,
+125,Antonio Joao,8,Diamante,126,2190,,
+133,Osasco,9,Esmeralda,134,1680,8,119
+136,Vila Lobos-Jaguare,9,Esmeralda,137,2470,,
+137,Cidade Universitaria,9,Esmeralda,138,1490,,
+138,Pinheiros,9,Esmeralda,139,880,4,62
+142,Berrini,9,Esmeralda,143,1960,,
+143,Morumbi,9,Esmeralda,144,1220,,
+144,Granja Julieta,9,Esmeralda,145,1700,,
+145,Joao Dias,9,Esmeralda,146,2240,,
+147,Socorro,9,Esmeralda,148,1770,,
+154,Juventus-Mooca,10,Turquesa,155,2960,,
+155,Ipiranga,10,Turquesa,156,1400,,
+156,Tamanduatei,10,Turquesa,157,2790,2,36
+158,Utinga,10,Turquesa,159,1570,,
+159,Prefeito Saladino,10,Turquesa,160,1730,,
+161,Capuava,10,Turquesa,162,3210,,
+162,Maua,10,Turquesa,163,3080,,
+163,Guapituba,10,Turquesa,164,4450,,
+170,Dom Bosco,11,Coral,171,1690,,
+171,Jose Bonifacio,11,Coral,172,1700,,
+172,Guaianases,11,Coral,173,3770,,
+173,Antonio Gianetti Neto,11,Coral,174,2320,,
+174,Ferraz de Vasconcelos,11,Coral,175,3030,,
+179,Braz Cubas,11,Coral,180,3330,,
+181,Estudantes,11,Coral,,,,
+183,Tatuape,12,Safira,184,8850,3,48
+184,Engenheiro Goulart,12,Safira,185,2550,13,198
+185,USP Leste,12,Safira,186,2100,,
+193,Aracare,12,Safira,194,3070,,
+195,Luz,13,Jade,196,2310,,
+197,Tatuape,13,Jade,198,8850,11,168
+198,Engenheiro Goulart,13,Jade,199,7070,12,184
+199,Guarulhos-Cecap,13,Jade,200,1690,,
