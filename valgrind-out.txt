@@ -1,0 +1,414 @@
+==24304== Memcheck, a memory error detector
+==24304== Copyright (C) 2002-2015, and GNU GPL'd, by Julian Seward et al.
+==24304== Using Valgrind-3.11.0 and LibVEX; rerun with -h for copyright info
+==24304== Command: ./main
+==24304== Parent PID: 18249
+==24304== 
+--24304-- 
+--24304-- Valgrind options:
+--24304--    --leak-check=full
+--24304--    --show-leak-kinds=all
+--24304--    --track-origins=yes
+--24304--    --verbose
+--24304--    --log-file=valgrind-out.txt
+--24304-- Contents of /proc/version:
+--24304--   Linux version 4.15.0-142-generic (buildd@lgw01-amd64-039) (gcc version 5.4.0 20160609 (Ubuntu 5.4.0-6ubuntu1~16.04.12)) #146~16.04.1-Ubuntu SMP Tue Apr 13 09:27:15 UTC 2021
+--24304-- 
+--24304-- Arch and hwcaps: AMD64, LittleEndian, amd64-cx16-lzcnt-rdtscp-sse3-avx-avx2-bmi
+--24304-- Page sizes: currently 4096, max supported 4096
+--24304-- Valgrind library directory: /usr/lib/valgrind
+--24304-- Reading syms from /home/mariannakarenina/Downloads/ED3_T2/main
+--24304-- Reading syms from /lib/x86_64-linux-gnu/ld-2.23.so
+--24304--   Considering /lib/x86_64-linux-gnu/ld-2.23.so ..
+--24304--   .. CRC mismatch (computed ceb73aaf wanted 8cb7c5ee)
+--24304--   Considering /usr/lib/debug/lib/x86_64-linux-gnu/ld-2.23.so ..
+--24304--   .. CRC is valid
+--24304-- Reading syms from /usr/lib/valgrind/memcheck-amd64-linux
+--24304--   Considering /usr/lib/valgrind/memcheck-amd64-linux ..
+--24304--   .. CRC mismatch (computed eea41ea9 wanted 2009db78)
+--24304--    object doesn't have a symbol table
+--24304--    object doesn't have a dynamic symbol table
+--24304-- Scheduler: using generic scheduler lock implementation.
+--24304-- Reading suppressions file: /usr/lib/valgrind/default.supp
+==24304== embedded gdbserver: reading from /tmp/vgdb-pipe-from-vgdb-to-24304-by-mariannakarenina-on-???
+==24304== embedded gdbserver: writing to   /tmp/vgdb-pipe-to-vgdb-from-24304-by-mariannakarenina-on-???
+==24304== embedded gdbserver: shared mem   /tmp/vgdb-pipe-shared-mem-vgdb-24304-by-mariannakarenina-on-???
+==24304== 
+==24304== TO CONTROL THIS PROCESS USING vgdb (which you probably
+==24304== don't want to do, unless you know exactly what you're doing,
+==24304== or are doing some strange experiment):
+==24304==   /usr/lib/valgrind/../../bin/vgdb --pid=24304 ...command...
+==24304== 
+==24304== TO DEBUG THIS PROCESS USING GDB: start GDB like this
+==24304==   /path/to/gdb ./main
+==24304== and then give GDB the following command
+==24304==   target remote | /usr/lib/valgrind/../../bin/vgdb --pid=24304
+==24304== --pid is optional if only one valgrind process is running
+==24304== 
+--24304-- REDIR: 0x401cf40 (ld-linux-x86-64.so.2:strlen) redirected to 0x3809e181 (???)
+--24304-- Reading syms from /usr/lib/valgrind/vgpreload_core-amd64-linux.so
+--24304--   Considering /usr/lib/valgrind/vgpreload_core-amd64-linux.so ..
+--24304--   .. CRC mismatch (computed 2567ccf6 wanted 49420590)
+--24304--    object doesn't have a symbol table
+--24304-- Reading syms from /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so
+--24304--   Considering /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so ..
+--24304--   .. CRC mismatch (computed 0e27c9a8 wanted ac585421)
+--24304--    object doesn't have a symbol table
+==24304== WARNING: new redirection conflicts with existing -- ignoring it
+--24304--     old: 0x0401cf40 (strlen              ) R-> (0000.0) 0x3809e181 ???
+--24304--     new: 0x0401cf40 (strlen              ) R-> (2007.0) 0x04c31020 strlen
+--24304-- REDIR: 0x401b890 (ld-linux-x86-64.so.2:index) redirected to 0x4c30bc0 (index)
+--24304-- REDIR: 0x401bab0 (ld-linux-x86-64.so.2:strcmp) redirected to 0x4c320d0 (strcmp)
+--24304-- REDIR: 0x401dca0 (ld-linux-x86-64.so.2:mempcpy) redirected to 0x4c35270 (mempcpy)
+--24304-- Reading syms from /lib/x86_64-linux-gnu/libc-2.23.so
+--24304--   Considering /lib/x86_64-linux-gnu/libc-2.23.so ..
+--24304--   .. CRC mismatch (computed 2c57cb29 wanted 6e6a411e)
+--24304--   Considering /usr/lib/debug/lib/x86_64-linux-gnu/libc-2.23.so ..
+--24304--   .. CRC is valid
+--24304-- REDIR: 0x4ec9a80 (libc.so.6:strcasecmp) redirected to 0x4a286f0 (_vgnU_ifunc_wrapper)
+--24304-- REDIR: 0x4ec5300 (libc.so.6:strcspn) redirected to 0x4a286f0 (_vgnU_ifunc_wrapper)
+--24304-- REDIR: 0x4ecbd70 (libc.so.6:strncasecmp) redirected to 0x4a286f0 (_vgnU_ifunc_wrapper)
+--24304-- REDIR: 0x4ec7770 (libc.so.6:strpbrk) redirected to 0x4a286f0 (_vgnU_ifunc_wrapper)
+--24304-- REDIR: 0x4ec7b00 (libc.so.6:strspn) redirected to 0x4a286f0 (_vgnU_ifunc_wrapper)
+--24304-- REDIR: 0x4ec91cb (libc.so.6:memcpy@GLIBC_2.2.5) redirected to 0x4a286f0 (_vgnU_ifunc_wrapper)
+--24304-- REDIR: 0x4ec7480 (libc.so.6:rindex) redirected to 0x4c308a0 (rindex)
+--24304-- REDIR: 0x4ebe180 (libc.so.6:malloc) redirected to 0x4c2db20 (malloc)
+--24304-- REDIR: 0x4ec80e0 (libc.so.6:__GI_strstr) redirected to 0x4c354d0 (__strstr_sse2)
+--24304-- REDIR: 0x4ece4f0 (libc.so.6:__GI_memcpy) redirected to 0x4c32b00 (__GI_memcpy)
+--24304-- REDIR: 0x4ebed80 (libc.so.6:calloc) redirected to 0x4c2faa0 (calloc)
+--24304-- REDIR: 0x4ec51e0 (libc.so.6:strcpy) redirected to 0x4a286f0 (_vgnU_ifunc_wrapper)
+--24304-- REDIR: 0x4edfa50 (libc.so.6:__strcpy_sse2_unaligned) redirected to 0x4c31040 (strcpy)
+--24304-- REDIR: 0x4ec3d50 (libc.so.6:strcmp) redirected to 0x4a286f0 (_vgnU_ifunc_wrapper)
+--24304-- REDIR: 0x4ed95f0 (libc.so.6:__strcmp_sse2_unaligned) redirected to 0x4c31f90 (strcmp)
+==24304== Conditional jump or move depends on uninitialised value(s)
+==24304==    at 0x4C31F9C: strcmp (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==24304==    by 0x40157F: percorreAresta (in /home/mariannakarenina/Downloads/ED3_T2/main)
+==24304==    by 0x401C63: criaGrafo (in /home/mariannakarenina/Downloads/ED3_T2/main)
+==24304==    by 0x403717: main (in /home/mariannakarenina/Downloads/ED3_T2/main)
+==24304==  Uninitialised value was created by a stack allocation
+==24304==    at 0x401935: criaGrafo (in /home/mariannakarenina/Downloads/ED3_T2/main)
+==24304== 
+==24304== Conditional jump or move depends on uninitialised value(s)
+==24304==    at 0x401582: percorreAresta (in /home/mariannakarenina/Downloads/ED3_T2/main)
+==24304==    by 0x401C63: criaGrafo (in /home/mariannakarenina/Downloads/ED3_T2/main)
+==24304==    by 0x403717: main (in /home/mariannakarenina/Downloads/ED3_T2/main)
+==24304==  Uninitialised value was created by a stack allocation
+==24304==    at 0x401935: criaGrafo (in /home/mariannakarenina/Downloads/ED3_T2/main)
+==24304== 
+==24304== Invalid write of size 1
+==24304==    at 0x4C31060: strcpy (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==24304==    by 0x402EDD: Prim (in /home/mariannakarenina/Downloads/ED3_T2/main)
+==24304==    by 0x403770: main (in /home/mariannakarenina/Downloads/ED3_T2/main)
+==24304==  Address 0x5389e18 is 0 bytes after a block of size 8 alloc'd
+==24304==    at 0x4C2DB8F: malloc (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==24304==    by 0x402E9E: Prim (in /home/mariannakarenina/Downloads/ED3_T2/main)
+==24304==    by 0x403770: main (in /home/mariannakarenina/Downloads/ED3_T2/main)
+==24304== 
+==24304== Invalid write of size 1
+==24304==    at 0x4C3106F: strcpy (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==24304==    by 0x402EDD: Prim (in /home/mariannakarenina/Downloads/ED3_T2/main)
+==24304==    by 0x403770: main (in /home/mariannakarenina/Downloads/ED3_T2/main)
+==24304==  Address 0x5389e1d is 5 bytes after a block of size 8 alloc'd
+==24304==    at 0x4C2DB8F: malloc (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==24304==    by 0x402E9E: Prim (in /home/mariannakarenina/Downloads/ED3_T2/main)
+==24304==    by 0x403770: main (in /home/mariannakarenina/Downloads/ED3_T2/main)
+==24304== 
+==24304== Invalid write of size 4
+==24304==    at 0x402F15: Prim (in /home/mariannakarenina/Downloads/ED3_T2/main)
+==24304==    by 0x403770: main (in /home/mariannakarenina/Downloads/ED3_T2/main)
+==24304==  Address 0x5389e50 is 16 bytes before an unallocated block of size 2,597,248 in arena "client"
+==24304== 
+==24304== Invalid write of size 8
+==24304==    at 0x402F2F: Prim (in /home/mariannakarenina/Downloads/ED3_T2/main)
+==24304==    by 0x403770: main (in /home/mariannakarenina/Downloads/ED3_T2/main)
+==24304==  Address 0x538ae58 is 4,088 bytes inside an unallocated block of size 2,597,248 in arena "client"
+==24304== 
+==24304== Invalid read of size 4
+==24304==    at 0x402F51: Prim (in /home/mariannakarenina/Downloads/ED3_T2/main)
+==24304==    by 0x403770: main (in /home/mariannakarenina/Downloads/ED3_T2/main)
+==24304==  Address 0x5389e50 is 16 bytes before an unallocated block of size 2,597,248 in arena "client"
+==24304== 
+--24304-- REDIR: 0x4ed07e0 (libc.so.6:strchrnul) redirected to 0x4c34da0 (strchrnul)
+--24304-- REDIR: 0x4ec9430 (libc.so.6:__GI_mempcpy) redirected to 0x4c34fa0 (__GI_mempcpy)
+==24304== Invalid read of size 4
+==24304==    at 0x402F84: Prim (in /home/mariannakarenina/Downloads/ED3_T2/main)
+==24304==    by 0x403770: main (in /home/mariannakarenina/Downloads/ED3_T2/main)
+==24304==  Address 0x538a470 is 16 bytes before a block of size 8 alloc'd
+==24304==    at 0x4C2DB8F: malloc (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==24304==    by 0x402E9E: Prim (in /home/mariannakarenina/Downloads/ED3_T2/main)
+==24304==    by 0x403770: main (in /home/mariannakarenina/Downloads/ED3_T2/main)
+==24304== 
+==24304== Invalid read of size 8
+==24304==    at 0x402FCB: Prim (in /home/mariannakarenina/Downloads/ED3_T2/main)
+==24304==    by 0x403770: main (in /home/mariannakarenina/Downloads/ED3_T2/main)
+==24304==  Address 0x538b478 is 2,888 bytes inside an unallocated block of size 2,594,480 in arena "client"
+==24304== 
+==24304== Invalid write of size 8
+==24304==    at 0x402FED: Prim (in /home/mariannakarenina/Downloads/ED3_T2/main)
+==24304==    by 0x403770: main (in /home/mariannakarenina/Downloads/ED3_T2/main)
+==24304==  Address 0x538b478 is 2,808 bytes inside an unallocated block of size 2,594,400 in arena "client"
+==24304== 
+==24304== Invalid read of size 8
+==24304==    at 0x402FF8: Prim (in /home/mariannakarenina/Downloads/ED3_T2/main)
+==24304==    by 0x403770: main (in /home/mariannakarenina/Downloads/ED3_T2/main)
+==24304==  Address 0x538b478 is 2,808 bytes inside an unallocated block of size 2,594,400 in arena "client"
+==24304== 
+==24304== Invalid write of size 1
+==24304==    at 0x4C31060: strcpy (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==24304==    by 0x40302B: Prim (in /home/mariannakarenina/Downloads/ED3_T2/main)
+==24304==    by 0x403770: main (in /home/mariannakarenina/Downloads/ED3_T2/main)
+==24304==  Address 0x538a938 is 0 bytes after a block of size 8 alloc'd
+==24304==    at 0x4C2FB55: calloc (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==24304==    by 0x402FE5: Prim (in /home/mariannakarenina/Downloads/ED3_T2/main)
+==24304==    by 0x403770: main (in /home/mariannakarenina/Downloads/ED3_T2/main)
+==24304== 
+==24304== Invalid write of size 1
+==24304==    at 0x4C3106F: strcpy (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==24304==    by 0x40302B: Prim (in /home/mariannakarenina/Downloads/ED3_T2/main)
+==24304==    by 0x403770: main (in /home/mariannakarenina/Downloads/ED3_T2/main)
+==24304==  Address 0x538a93a is 2 bytes after a block of size 8 alloc'd
+==24304==    at 0x4C2FB55: calloc (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==24304==    by 0x402FE5: Prim (in /home/mariannakarenina/Downloads/ED3_T2/main)
+==24304==    by 0x403770: main (in /home/mariannakarenina/Downloads/ED3_T2/main)
+==24304== 
+==24304== Invalid write of size 4
+==24304==    at 0x403050: Prim (in /home/mariannakarenina/Downloads/ED3_T2/main)
+==24304==    by 0x403770: main (in /home/mariannakarenina/Downloads/ED3_T2/main)
+==24304==  Address 0x538a970 is 16 bytes before an unallocated block of size 2,594,400 in arena "client"
+==24304== 
+==24304== Invalid write of size 8
+==24304==    at 0x403057: Prim (in /home/mariannakarenina/Downloads/ED3_T2/main)
+==24304==    by 0x403770: main (in /home/mariannakarenina/Downloads/ED3_T2/main)
+==24304==  Address 0x538b978 is 4,088 bytes inside an unallocated block of size 2,594,400 in arena "client"
+==24304== 
+==24304== Invalid read of size 8
+==24304==    at 0x402FBC: Prim (in /home/mariannakarenina/Downloads/ED3_T2/main)
+==24304==    by 0x403770: main (in /home/mariannakarenina/Downloads/ED3_T2/main)
+==24304==  Address 0x538ba18 is 728 bytes inside an unallocated block of size 2,590,880 in arena "client"
+==24304== 
+==24304== 
+==24304== Process terminating with default action of signal 11 (SIGSEGV)
+==24304==  General Protection Fault
+==24304==    at 0x402FCB: Prim (in /home/mariannakarenina/Downloads/ED3_T2/main)
+==24304==    by 0x403770: main (in /home/mariannakarenina/Downloads/ED3_T2/main)
+--24304-- REDIR: 0x4ebe540 (libc.so.6:free) redirected to 0x4c2ed80 (free)
+==24304== 
+==24304== HEAP SUMMARY:
+==24304==     in use at exit: 1,552,088 bytes in 618 blocks
+==24304==   total heap usage: 622 allocs, 4 frees, 1,562,328 bytes allocated
+==24304== 
+==24304== Searching for pointers to 618 not-freed blocks
+==24304== Checked 1,598,552 bytes
+==24304== 
+==24304== 32 bytes in 4 blocks are definitely lost in loss record 1 of 12
+==24304==    at 0x4C2FB55: calloc (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==24304==    by 0x402FE5: Prim (in /home/mariannakarenina/Downloads/ED3_T2/main)
+==24304==    by 0x403770: main (in /home/mariannakarenina/Downloads/ED3_T2/main)
+==24304== 
+==24304== 432 bytes in 6 blocks are still reachable in loss record 2 of 12
+==24304==    at 0x4C2FB55: calloc (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==24304==    by 0x400E06: ordenacaoVertice (in /home/mariannakarenina/Downloads/ED3_T2/main)
+==24304==    by 0x401B86: criaGrafo (in /home/mariannakarenina/Downloads/ED3_T2/main)
+==24304==    by 0x403717: main (in /home/mariannakarenina/Downloads/ED3_T2/main)
+==24304== 
+==24304== 552 bytes in 1 blocks are still reachable in loss record 3 of 12
+==24304==    at 0x4C2DB8F: malloc (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==24304==    by 0x4EA7CEC: __fopen_internal (iofopen.c:69)
+==24304==    by 0x403624: main (in /home/mariannakarenina/Downloads/ED3_T2/main)
+==24304== 
+==24304== 552 bytes in 1 blocks are still reachable in loss record 4 of 12
+==24304==    at 0x4C2DB8F: malloc (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==24304==    by 0x4EA7CEC: __fopen_internal (iofopen.c:69)
+==24304==    by 0x40363F: main (in /home/mariannakarenina/Downloads/ED3_T2/main)
+==24304== 
+==24304== 584 bytes in 73 blocks are still reachable in loss record 5 of 12
+==24304==    at 0x4C2DB8F: malloc (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==24304==    by 0x402E9E: Prim (in /home/mariannakarenina/Downloads/ED3_T2/main)
+==24304==    by 0x403770: main (in /home/mariannakarenina/Downloads/ED3_T2/main)
+==24304== 
+==24304== 1,360 bytes in 1 blocks are still reachable in loss record 6 of 12
+==24304==    at 0x4C2DB8F: malloc (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==24304==    by 0x4029AB: Prim (in /home/mariannakarenina/Downloads/ED3_T2/main)
+==24304==    by 0x403770: main (in /home/mariannakarenina/Downloads/ED3_T2/main)
+==24304== 
+==24304== 8,352 bytes in 2 blocks are still reachable in loss record 7 of 12
+==24304==    at 0x4C2FB55: calloc (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==24304==    by 0x4014A2: aresta_integracao (in /home/mariannakarenina/Downloads/ED3_T2/main)
+==24304==    by 0x401C2D: criaGrafo (in /home/mariannakarenina/Downloads/ED3_T2/main)
+==24304==    by 0x403717: main (in /home/mariannakarenina/Downloads/ED3_T2/main)
+==24304== 
+==24304== 11,808 bytes in 164 blocks are still reachable in loss record 8 of 12
+==24304==    at 0x4C2FB55: calloc (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==24304==    by 0x400E9D: ordenacaoVertice (in /home/mariannakarenina/Downloads/ED3_T2/main)
+==24304==    by 0x401B86: criaGrafo (in /home/mariannakarenina/Downloads/ED3_T2/main)
+==24304==    by 0x403717: main (in /home/mariannakarenina/Downloads/ED3_T2/main)
+==24304== 
+==24304== 25,056 bytes in 6 blocks are definitely lost in loss record 9 of 12
+==24304==    at 0x4C2FB55: calloc (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==24304==    by 0x4016CE: criaAresta (in /home/mariannakarenina/Downloads/ED3_T2/main)
+==24304==    by 0x401CC9: criaGrafo (in /home/mariannakarenina/Downloads/ED3_T2/main)
+==24304==    by 0x403717: main (in /home/mariannakarenina/Downloads/ED3_T2/main)
+==24304== 
+==24304== 87,696 bytes in 21 blocks are still reachable in loss record 10 of 12
+==24304==    at 0x4C2FB55: calloc (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==24304==    by 0x4016CE: criaAresta (in /home/mariannakarenina/Downloads/ED3_T2/main)
+==24304==    by 0x401CC9: criaGrafo (in /home/mariannakarenina/Downloads/ED3_T2/main)
+==24304==    by 0x403717: main (in /home/mariannakarenina/Downloads/ED3_T2/main)
+==24304== 
+==24304== 668,160 bytes in 160 blocks are still reachable in loss record 11 of 12
+==24304==    at 0x4C2FB55: calloc (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==24304==    by 0x4016CE: criaAresta (in /home/mariannakarenina/Downloads/ED3_T2/main)
+==24304==    by 0x401BD1: criaGrafo (in /home/mariannakarenina/Downloads/ED3_T2/main)
+==24304==    by 0x403717: main (in /home/mariannakarenina/Downloads/ED3_T2/main)
+==24304== 
+==24304== 747,504 bytes in 179 blocks are still reachable in loss record 12 of 12
+==24304==    at 0x4C2FB55: calloc (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==24304==    by 0x4016CE: criaAresta (in /home/mariannakarenina/Downloads/ED3_T2/main)
+==24304==    by 0x401892: GrafoNaoDirecionado (in /home/mariannakarenina/Downloads/ED3_T2/main)
+==24304==    by 0x403751: main (in /home/mariannakarenina/Downloads/ED3_T2/main)
+==24304== 
+==24304== LEAK SUMMARY:
+==24304==    definitely lost: 25,088 bytes in 10 blocks
+==24304==    indirectly lost: 0 bytes in 0 blocks
+==24304==      possibly lost: 0 bytes in 0 blocks
+==24304==    still reachable: 1,527,000 bytes in 608 blocks
+==24304==         suppressed: 0 bytes in 0 blocks
+==24304== 
+==24304== ERROR SUMMARY: 780 errors from 18 contexts (suppressed: 0 from 0)
+==24304== 
+==24304== 2 errors in context 1 of 18:
+==24304== Invalid read of size 8
+==24304==    at 0x402FBC: Prim (in /home/mariannakarenina/Downloads/ED3_T2/main)
+==24304==    by 0x403770: main (in /home/mariannakarenina/Downloads/ED3_T2/main)
+==24304==  Address 0x538ba18 is 728 bytes inside an unallocated block of size 2,590,880 in arena "client"
+==24304== 
+==24304== 
+==24304== 4 errors in context 2 of 18:
+==24304== Invalid write of size 8
+==24304==    at 0x403057: Prim (in /home/mariannakarenina/Downloads/ED3_T2/main)
+==24304==    by 0x403770: main (in /home/mariannakarenina/Downloads/ED3_T2/main)
+==24304==  Address 0x538b978 is 4,088 bytes inside an unallocated block of size 2,594,400 in arena "client"
+==24304== 
+==24304== 
+==24304== 4 errors in context 3 of 18:
+==24304== Invalid write of size 4
+==24304==    at 0x403050: Prim (in /home/mariannakarenina/Downloads/ED3_T2/main)
+==24304==    by 0x403770: main (in /home/mariannakarenina/Downloads/ED3_T2/main)
+==24304==  Address 0x538a970 is 16 bytes before an unallocated block of size 2,594,400 in arena "client"
+==24304== 
+==24304== 
+==24304== 4 errors in context 4 of 18:
+==24304== Invalid write of size 1
+==24304==    at 0x4C3106F: strcpy (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==24304==    by 0x40302B: Prim (in /home/mariannakarenina/Downloads/ED3_T2/main)
+==24304==    by 0x403770: main (in /home/mariannakarenina/Downloads/ED3_T2/main)
+==24304==  Address 0x538a93a is 2 bytes after a block of size 8 alloc'd
+==24304==    at 0x4C2FB55: calloc (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==24304==    by 0x402FE5: Prim (in /home/mariannakarenina/Downloads/ED3_T2/main)
+==24304==    by 0x403770: main (in /home/mariannakarenina/Downloads/ED3_T2/main)
+==24304== 
+==24304== 
+==24304== 4 errors in context 5 of 18:
+==24304== Invalid read of size 8
+==24304==    at 0x402FF8: Prim (in /home/mariannakarenina/Downloads/ED3_T2/main)
+==24304==    by 0x403770: main (in /home/mariannakarenina/Downloads/ED3_T2/main)
+==24304==  Address 0x538b478 is 2,808 bytes inside an unallocated block of size 2,594,400 in arena "client"
+==24304== 
+==24304== 
+==24304== 4 errors in context 6 of 18:
+==24304== Invalid write of size 8
+==24304==    at 0x402FED: Prim (in /home/mariannakarenina/Downloads/ED3_T2/main)
+==24304==    by 0x403770: main (in /home/mariannakarenina/Downloads/ED3_T2/main)
+==24304==  Address 0x538b478 is 2,808 bytes inside an unallocated block of size 2,594,400 in arena "client"
+==24304== 
+==24304== 
+==24304== 5 errors in context 7 of 18:
+==24304== Invalid read of size 4
+==24304==    at 0x402F84: Prim (in /home/mariannakarenina/Downloads/ED3_T2/main)
+==24304==    by 0x403770: main (in /home/mariannakarenina/Downloads/ED3_T2/main)
+==24304==  Address 0x538a470 is 16 bytes before a block of size 8 alloc'd
+==24304==    at 0x4C2DB8F: malloc (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==24304==    by 0x402E9E: Prim (in /home/mariannakarenina/Downloads/ED3_T2/main)
+==24304==    by 0x403770: main (in /home/mariannakarenina/Downloads/ED3_T2/main)
+==24304== 
+==24304== 
+==24304== 7 errors in context 8 of 18:
+==24304== Invalid read of size 8
+==24304==    at 0x402FCB: Prim (in /home/mariannakarenina/Downloads/ED3_T2/main)
+==24304==    by 0x403770: main (in /home/mariannakarenina/Downloads/ED3_T2/main)
+==24304==  Address 0x538b478 is 2,888 bytes inside an unallocated block of size 2,594,480 in arena "client"
+==24304== 
+==24304== 
+==24304== 34 errors in context 9 of 18:
+==24304== Invalid write of size 1
+==24304==    at 0x4C31060: strcpy (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==24304==    by 0x40302B: Prim (in /home/mariannakarenina/Downloads/ED3_T2/main)
+==24304==    by 0x403770: main (in /home/mariannakarenina/Downloads/ED3_T2/main)
+==24304==  Address 0x538a938 is 0 bytes after a block of size 8 alloc'd
+==24304==    at 0x4C2FB55: calloc (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==24304==    by 0x402FE5: Prim (in /home/mariannakarenina/Downloads/ED3_T2/main)
+==24304==    by 0x403770: main (in /home/mariannakarenina/Downloads/ED3_T2/main)
+==24304== 
+==24304== 
+==24304== 39 errors in context 10 of 18:
+==24304== Conditional jump or move depends on uninitialised value(s)
+==24304==    at 0x401582: percorreAresta (in /home/mariannakarenina/Downloads/ED3_T2/main)
+==24304==    by 0x401C63: criaGrafo (in /home/mariannakarenina/Downloads/ED3_T2/main)
+==24304==    by 0x403717: main (in /home/mariannakarenina/Downloads/ED3_T2/main)
+==24304==  Uninitialised value was created by a stack allocation
+==24304==    at 0x401935: criaGrafo (in /home/mariannakarenina/Downloads/ED3_T2/main)
+==24304== 
+==24304== 
+==24304== 39 errors in context 11 of 18:
+==24304== Conditional jump or move depends on uninitialised value(s)
+==24304==    at 0x4C31F9C: strcmp (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==24304==    by 0x40157F: percorreAresta (in /home/mariannakarenina/Downloads/ED3_T2/main)
+==24304==    by 0x401C63: criaGrafo (in /home/mariannakarenina/Downloads/ED3_T2/main)
+==24304==    by 0x403717: main (in /home/mariannakarenina/Downloads/ED3_T2/main)
+==24304==  Uninitialised value was created by a stack allocation
+==24304==    at 0x401935: criaGrafo (in /home/mariannakarenina/Downloads/ED3_T2/main)
+==24304== 
+==24304== 
+==24304== 61 errors in context 12 of 18:
+==24304== Invalid write of size 1
+==24304==    at 0x4C3106F: strcpy (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==24304==    by 0x402EDD: Prim (in /home/mariannakarenina/Downloads/ED3_T2/main)
+==24304==    by 0x403770: main (in /home/mariannakarenina/Downloads/ED3_T2/main)
+==24304==  Address 0x5389e1d is 5 bytes after a block of size 8 alloc'd
+==24304==    at 0x4C2DB8F: malloc (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==24304==    by 0x402E9E: Prim (in /home/mariannakarenina/Downloads/ED3_T2/main)
+==24304==    by 0x403770: main (in /home/mariannakarenina/Downloads/ED3_T2/main)
+==24304== 
+==24304== 
+==24304== 73 errors in context 13 of 18:
+==24304== Invalid read of size 4
+==24304==    at 0x402F51: Prim (in /home/mariannakarenina/Downloads/ED3_T2/main)
+==24304==    by 0x403770: main (in /home/mariannakarenina/Downloads/ED3_T2/main)
+==24304==  Address 0x5389e50 is 16 bytes before an unallocated block of size 2,597,248 in arena "client"
+==24304== 
+==24304== 
+==24304== 73 errors in context 14 of 18:
+==24304== Invalid write of size 8
+==24304==    at 0x402F2F: Prim (in /home/mariannakarenina/Downloads/ED3_T2/main)
+==24304==    by 0x403770: main (in /home/mariannakarenina/Downloads/ED3_T2/main)
+==24304==  Address 0x538ae58 is 4,088 bytes inside an unallocated block of size 2,597,248 in arena "client"
+==24304== 
+==24304== 
+==24304== 73 errors in context 15 of 18:
+==24304== Invalid write of size 4
+==24304==    at 0x402F15: Prim (in /home/mariannakarenina/Downloads/ED3_T2/main)
+==24304==    by 0x403770: main (in /home/mariannakarenina/Downloads/ED3_T2/main)
+==24304==  Address 0x5389e50 is 16 bytes before an unallocated block of size 2,597,248 in arena "client"
+==24304== 
+==24304== 
+==24304== 352 errors in context 16 of 18:
+==24304== Invalid write of size 1
+==24304==    at 0x4C31060: strcpy (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==24304==    by 0x402EDD: Prim (in /home/mariannakarenina/Downloads/ED3_T2/main)
+==24304==    by 0x403770: main (in /home/mariannakarenina/Downloads/ED3_T2/main)
+==24304==  Address 0x5389e18 is 0 bytes after a block of size 8 alloc'd
+==24304==    at 0x4C2DB8F: malloc (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==24304==    by 0x402E9E: Prim (in /home/mariannakarenina/Downloads/ED3_T2/main)
+==24304==    by 0x403770: main (in /home/mariannakarenina/Downloads/ED3_T2/main)
+==24304== 
+==24304== ERROR SUMMARY: 780 errors from 18 contexts (suppressed: 0 from 0)
