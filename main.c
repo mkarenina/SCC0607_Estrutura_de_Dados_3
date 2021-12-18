@@ -9,6 +9,7 @@
 #include <stdbool.h>
 #include <ctype.h>
 
+
 #define TAM_VERTICE 1000
 
 //struct de arestas do grafo, ou seja, das listas encadeadas
@@ -156,7 +157,7 @@ int ordenacaoVertice(char estacao[], vertice *vert[]){
 		vert[i]=(vertice*)calloc(1,sizeof(vertice));
 		strcpy(vert[i]->nomeEst, estacao);
 		//printf("nomeEst_dentro_do_ordenacaoVertice: %s\n", vert[i]->nomeEst);
-		vert[i]->qtdeArestas = 1;
+		//vert[i]->qtdeArestas = 1;
 		return i;
 	}
 
@@ -172,7 +173,7 @@ int ordenacaoVertice(char estacao[], vertice *vert[]){
 	//printf("pos calloc\n");
 	strcpy(atual->nomeEst, estacao);
 	//printf("pos strcpy\n");
-	atual->qtdeArestas = 1;
+	//atual->qtdeArestas = 1;
 	//printf("pos atual->qtdeArestas\n");
 	at = i;
 	//printf("i=at: %d\n", i);
@@ -378,7 +379,7 @@ void criaAresta(int codProxEst, vertice *vert[], int i, int distancia, char nome
 	insercao->prox = NULL;
 
 	//Aumenta qtde arestas do vertice atual
-	vert[i]->qtdeArestas++;
+	//vert[i]->qtdeArestas++;
 
 	if(arestaAnterior!=NULL){   //Nao eh a primeira aresta do vertice
 		//Ordena a aresta alocada, arrumando os ponteiros de insercao
@@ -703,46 +704,6 @@ int recBuscaProfundidade(vertice *vert[], char *origem, vert_visita *visitado[],
 	}
 
 	return -1;
-
-		
-	// while(curr_a!=NULL){	//Percorre as arestas para pegar a de menor caminho
-	// 	if(strcmp(curr_a->nomeEst, origem)==0){	//Encontrou ciclo!
-	// 		posTeste = percorreVertice(curr_a, vert);
-	// 		return posTeste;
-	// 	}
-	// 	if(avanco==NULL || curr_a->dist<avanco->dist){	//Se encontra distancia menor entre as arestas do vertice atual
-	// 		posTeste = percorreVertice(curr_a->nomeEst, vert);
-	// 		if(visitado[posTeste]->cor==0){		//Se o vertice ainda nao foi analisado, vai para ele
-	// 			avanco=curr_a;
-	// 		}
-	// 	}
-	// 	if(avanco==NULL || (curr_a->dist==avanco->dist && strcmp(curr_a->nomeEst, avanco->nomeEst))>1){	//Se é a mesma distancia, mas nome da aresta de avanco<atual
-	// 		posTeste = percorreVertice(curr_a->nomeEst, vert);
-	// 		if(visitado[posTeste]->cor==0){		//Se o vertice ainda nao foi analisado, vai para ele
-	// 			avanco=curr_a;
-	// 		}
-	// 	}
-	// 	curr_a=curr_a->prox;
-	// }
-
-	/*if(avanco==NULL){	//Todas as arestas desse vertice ja foram analisadas
-		return -1;
-	}
-
-	//Se chegou aqui entao vai analisar a proxima aresta
-	posTeste = percorreVertice(avanco->nomeEst, vert);
-	strcpy(visitado[posTeste]->ANT, vert[posAt]->nomeEst);	//Atualizando struct visitado
-	visitado[posTeste]->cor = 1;
-	visitado[posTeste]->D = avanco->dist;
-
-	respostaRec = recBuscaProfundidade(vert, origem, visitado, posTeste);
-
-	if(respostaRec!=-1){		//Encontrou ciclo
-		return respostaRec;
-	}*/
-
-	//Nao encontrou ciclo nesse caminho, seguir para o proximo vertice
-
 }
 
 //Percorre grafo em profundidade para encontrar ciclo
@@ -781,15 +742,66 @@ void buscaProfundidade(vertice *vert[], char *estacaoOrigem, int totalV){
 
 }
 
-aresta_ptr Prim (char origem[], vertice *verts[], int total_vertices){
-	aresta_ptr res[total_vertices] = calloc(sizeof(aresta),total_vertices);
+int recBuscaProfundidade_prim(vertice *vert[], aresta_ptr* arestas, char *origem, int posAt){
+	int posFilho, respostaRec;
+	aresta_ptr curr_a = arestas[posAt];
+	aresta_ptr avanco = NULL;
+
+	//print ATUAL, FILHO, DISTANCIA
+	
+	while(curr_a!=NULL){	//Percorre as arestas para pegar a de menor caminho
+		printf("%s, ", vert[posAt]->nomeEst);	//Printa nome da estacao atual
+		printf("%s, ", curr_a->nomeEst);
+		printf("%d\n", curr_a->dist);
+
+		posFilho = percorreVertice(curr_a->nomeEst, vert);
+
+		respostaRec = recBuscaProfundidade_prim(vert, arestas, origem, posFilho);
+		// if(respostaRec!=-1){		//Encontrou ciclo
+		// 	//printf("Encontrou ciclo!\n");
+		// 	return respostaRec;
+		// }
+		curr_a=curr_a->prox;
+	}
+
+	//print("\n");
+	return -1;
+}
+
+//Percorre grafo em profundidade para encontrar ciclo
+void buscaProfundidade_prim(vertice *vert[], aresta_ptr* arestas, char *estacaoOrigem, int totalV){
+	int posAt, posTeste, tmp, i, resposta;
+	int running=1;
+
+	aresta_ptr curr_a, avanco;
+	vertice *curr_v;
+	
+	posAt = percorreVertice(estacaoOrigem, vert);
+	if(posAt==-1){
+		//printf("Nao encontrou vertice\n");
+		return;
+	}
+
+	curr_a = arestas[posAt];
+	avanco = curr_a;
+
+	//printf("Entrando recursao\n");
+	resposta = recBuscaProfundidade_prim(vert, arestas, estacaoOrigem, posAt);
+
+	return;
+}
+
+
+aresta_ptr* Prim (char origem[], vertice *verts[], int total_vertices){
+	aresta_ptr *res =(aresta_ptr *)calloc(sizeof(aresta_ptr),total_vertices);
  	aux_prim vet[total_vertices];
 	int min, pos, tmpPos;
-	aresta *aresta;
+	aresta_ptr aresta;
 	int i,j;
 	
 	//inicialização
 	for(i = 0; i < total_vertices; i ++){
+		res[i] = NULL;
 		vet[i].conn = false;
 		vet[i].pai  = -1;
 		vet[i].dist = INT_MAX/2;
@@ -798,7 +810,7 @@ aresta_ptr Prim (char origem[], vertice *verts[], int total_vertices){
 	pos = percorreVertice(origem, verts);
 
 	if(pos==-1){
-		//printf("Falha percorre Vertice.");
+		printf("Falha percorre Vertice.");
 	}
 
 	vet[pos].conn = true;
@@ -816,7 +828,7 @@ aresta_ptr Prim (char origem[], vertice *verts[], int total_vertices){
 		min = INT_MAX/4;
 		pos = -1;
 		for(i = 0; i < total_vertices; i++){
-			if(vet[i].conn = false && vet[i].dist < min){
+			if(vet[i].conn == false && vet[i].dist < min){
 				min = vet[i].dist;
 				pos = i;
 			}
@@ -825,6 +837,7 @@ aresta_ptr Prim (char origem[], vertice *verts[], int total_vertices){
 			break;
 		}
 
+		aresta = verts[pos]->first;
 		vet[pos].conn = true;
 	
 		while(aresta!= NULL){
@@ -832,28 +845,36 @@ aresta_ptr Prim (char origem[], vertice *verts[], int total_vertices){
 			if(vet[tmpPos].conn == false && aresta->dist < vet[tmpPos].dist){
 				vet[tmpPos].dist = aresta->dist;
 				vet[tmpPos].pai = pos;
-				aresta = aresta->prox;
 			}
+			aresta = aresta->prox;
 		}
 	}
 
 	for(i = 0; i < total_vertices; i++){
-		if(vet[i].conn = false){
-			printf("Falha na execução da funcionalidade.");
+		res[i] = NULL;
+		if(vet[i].conn == false){
+			printf("Falha na execução da funcionalidade.\n");
 			return NULL;
 		}
 	}
-	
 
 	//pos = percorreVertice(origem, verts);
 
 	for(i = 0; i < total_vertices; i++){
 		pos = vet[i].pai;
-		if(res[pos] == NULL){
+		
+		if(pos == -1){
+		}else if(res[pos] == NULL){
+			printf("aaaaaaaaaaaaaaa\n");
 			res[pos] = (aresta_ptr)calloc(sizeof(aresta),1);
-			strcpy(res[pos]->nomeEst, verts[i]->nomeEst);
+			printf("bbbbbbbbbbbbbbb\n");
+			strncpy(res[pos]->nomeEst, verts[i]->nomeEst, 64);
 			res[pos]->dist = vet[i].dist;
+			res[pos]->prox = NULL;
+
+			printf("res[pos]->dist:%d, \tpos: %d\n", res[pos]->dist, pos);
 		}else{
+			printf("2 acesso. res[pos]->dist:%d, \tpos: %d\n", res[pos]->dist, pos);
 			aresta_ptr tmpAr = res[pos];
 			while(tmpAr->prox != NULL){
 				tmpAr = tmpAr->prox;
@@ -864,13 +885,12 @@ aresta_ptr Prim (char origem[], vertice *verts[], int total_vertices){
 
 			strcpy(tmpAr->nomeEst, verts[i]->nomeEst);
 			tmpAr->dist = vet[i].dist;
-		}	
+			tmpAr->prox = NULL;
+		}
 	}
 	
 	return res;
 }
-
-
 
 int main(){
 	int funcionalidade;
@@ -885,6 +905,7 @@ int main(){
 	vertice *ver[TAM_VERTICE];
 	FILE *arq;
 	FILE *busca;
+	aresta_ptr* resultado_prim;
 
 
 	scanf("%d ", &funcionalidade);
@@ -1024,19 +1045,20 @@ int main(){
 
             GrafoNaoDirecionado(ver, qtdeEst);
 			
-			for(i=0; i<qtdeEst; i++){
+			/*for(i=0; i<qtdeEst; i++){
 				printGrafo(ver, i);
 				printf("\n");
-			}
+			}*/
 
-			//Prim();
+			resultado_prim = Prim(origem, ver, qtdeEst);
+			buscaProfundidade_prim(ver, resultado_prim, origem, qtdeEst);
 			
 			fclose(arq);
 			fclose(busca);
 
 			break;
 			
-			break;
+
 			
 	} 
 

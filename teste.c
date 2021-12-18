@@ -526,11 +526,6 @@ int criaGrafo(FILE *arq, FILE *busca, vertice *vert[], int TipoGrafo){
 	return 0;
 }
 
-//Printa estacoes somente
-void printEstacoes(){
-	
-}
-
 void printBusca(char *destino, char *printErro, int destPos, char *origem, vertice *vet[], int conectado, vert_visita *visitado[]){
 	int cont=0;
 	int Dtot=0;
