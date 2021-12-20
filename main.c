@@ -62,7 +62,7 @@ int main(){
 	int funcionalidade;
 	char in[32];
 	int status;
-	int qtdeEst, i, retorno_erro;
+	int qtdeEst, i, retorno_erro, j;
 	int qtdePares = 0;
 	char nomeEstacaoOrigem [25];
 	char origem [64];
@@ -221,6 +221,24 @@ int main(){
 			fclose(busca);
 
 			break;
-	} 
+	}
+
+
+	//free grafo
+	if(ver!=NULL){
+		aresta_ptr atual, prox;
+		j=0;
+		while(ver[j]!=NULL){
+			atual = ver[j]->first;
+			while(atual!=NULL){		//Free nas arestas do vertice atual
+				prox=atual->prox;
+				free(atual);
+				atual=prox;
+			}
+			free(ver[j]);
+			j++;
+		}
+	}
+
 	return 0;
 }

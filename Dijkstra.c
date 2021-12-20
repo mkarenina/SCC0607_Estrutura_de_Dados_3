@@ -79,6 +79,11 @@ void Dijkstra(char origem[], char destino[], vertice *vet[], int total_vertices)
 	}
 
 	printBusca(destino, "Não existe caminho entre as estações solicitadas.", destPos, origem, vet, conectado, visitado);
+
+    //free visitado
+    for(i=0; i<total_vertices; i++){
+		free(visitado[i]);
+	}
     
 	return;
 }

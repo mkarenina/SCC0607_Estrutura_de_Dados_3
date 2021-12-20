@@ -1,3 +1,5 @@
-Arquivo zip gerado em: 14/12/2021 10:35:54 
-Este arquivo contém os casos de teste cadastrados até o momento, disponibilizado pelo professor aos alunos.
-Exercício: Trabalho Prático 2
+/*Alunas:   Gabriela Vidal      ->  4277535
+	    Marianna Karenina   ->  10821144
+*/
+//SCC0607 - Estrutura de Dados 3
+//Segundo Trabalho Prático
